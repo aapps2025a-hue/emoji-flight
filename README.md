@@ -1,13 +1,24 @@
-# Emoji Flight with accounts
+# Emoji Flight — Firebase edition
 
-Run `START.cmd` on Windows with Python installed, then open http://127.0.0.1:18943 in Chrome. Keep the server window running. Alternatively run `python server.py`.
+Static browser game for GitHub Pages with Firebase email/password Authentication and Firestore saves. The frontend no longer calls a Python /api server.
 
-Create an account on the login screen. The app saves coins, owned aircraft, inventory, unlocked airports, catering stock and custom airlines/logos. Active flights restart at the terminal. Each account starts fresh; old browser-only saves are left untouched. Saves are loaded before the game starts, and save failures are shown above the game. A newer save from another tab causes a conflict instead of being overwritten.
+## Live setup status
 
-## Database and GitHub
+Firebase project: `emoji-flight-aapps2025`. Firestore `(default)` is created in `eur3` on the free tier. The rules in `firestore.rules` are deployed. Firebase Authentication still needs first-time activation in the Firebase console. Select Authentication → Get started, then enable Email/Password. Add `aapps2025a-hue.github.io` under Authentication → Settings → Authorized domains. No billing was enabled.
 
-`schema.sql` creates the SQLite database automatically in `data/players.sqlite3`. Passwords are salted and hashed with scrypt. Sessions use HttpOnly cookies and hashed random tokens. Keep a private backup of the data directory with the server stopped.
+## Saved data
 
-Commit the source and schema to GitHub. Do not upload the data directory: `.gitignore` excludes player accounts and saves. GitHub stores the source; GitHub Pages cannot run this Python server or a writable SQLite database. Source repository: https://github.com/aapps2025a-hue/emoji-flight. GitHub Pages deployment is not enabled: the login and save API requires a running backend.
+Accounts use email/password. Each user owns `players/{uid}` and its `chunks` subcollection. Atomic Firestore transactions save coins, purchases, airports, catering and custom airline logos. Revision checks reject stale tabs. Active flights restart at the terminal. Passwords are handled by Firebase Authentication, never stored in Firestore. Existing local SQLite accounts and saves are preserved locally but not migrated; create a new Firebase account.
 
-This runnable edition is restricted to this computer (localhost). For online play across devices it needs a server with persistent storage, HTTPS, secure cookies, production HTTP hosting and deployment configuration. Do not expose the development server directly to the internet. There is no password recovery in this edition. The game remains client-authoritative and is not intended for competitive or real-money balances.
+## Hosting
+
+GitHub Pages serves `/docs` on `main`. `docs` is a copy of `public`; copy public files again when updating the site. All browser paths are relative so project Pages URLs work.
+
+For local preview run `START.cmd` and open http://127.0.0.1:18944/. Firebase requires internet access. The old Python server and schema remain for reference but are not used by this frontend.
+
+Deploy rules: `firebase deploy --only firestore:rules --project emoji-flight-aapps2025`.
+The Firebase web configuration is public app identification, not an admin credential; access control is enforced by Firestore rules. Do not commit data/, service-account keys or private tokens. This game is client-authoritative and not for competitive or real-money balances.
+
+## Validation
+
+JavaScript syntax and mocked Firebase adapter tests passed (save/load, account separation, stale revision rejection, Unicode chunking and sign-out). Firestore rules compiled and deployed. End-to-end cloud login awaits Authentication activation.
