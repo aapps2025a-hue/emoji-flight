@@ -4,7 +4,7 @@ Static browser game for GitHub Pages with Firebase email/password Authentication
 
 ## Live setup status
 
-Firebase project: `emoji-flight-aapps2025`. Firestore `(default)` is created in `eur3` on the free tier. The rules in `firestore.rules` are deployed. Firebase Authentication still needs first-time activation in the Firebase console. Select Authentication → Get started, then enable Email/Password. Add `aapps2025a-hue.github.io` under Authentication → Settings → Authorized domains. No billing was enabled.
+Firebase project: `emoji-flight-aapps2025`. Firestore `(default)` is created in `eur3` on the free tier. The rules in `firestore.rules` are deployed. Firebase Authentication is active with Email/Password enabled. The GitHub Pages domain is authorized. No billing was enabled. Play at https://aapps2025a-hue.github.io/emoji-flight/.
 
 ## Saved data
 
@@ -21,4 +21,4 @@ The Firebase web configuration is public app identification, not an admin creden
 
 ## Validation
 
-JavaScript syntax and mocked Firebase adapter tests passed (save/load, account separation, stale revision rejection, Unicode chunking and sign-out). Firestore rules compiled and deployed. End-to-end cloud login awaits Authentication activation.
+JavaScript syntax and mocked Firebase adapter tests passed (save/load, account separation, stale revision rejection, Unicode chunking and sign-out). Firestore rules compiled and deployed. Live Firebase registration, sign-in, save restoration, cross-account read/write denial and anonymous read denial passed. Temporary test accounts and saves were removed.
