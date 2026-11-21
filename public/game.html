@@ -1,0 +1,963 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Emoji Flight — Screenshot Airport • First Person</title><style>
+*{box-sizing:border-box}body{margin:0;background:#081726;color:#ebf6ff;font-family:system-ui,Segoe UI,Arial}header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 18px;background:#09233b}h1{font-size:21px;margin:0}#coins{background:#244864;padding:8px 14px;border-radius:18px;color:#ffe39a;font-weight:bold}.game{position:relative;height:min(72vh,800px);min-height:440px;background:#9cc7e5;overflow:hidden}#view,#labels{position:absolute;inset:0;width:100%;height:100%;display:block}#labels{pointer-events:none}#hud{position:absolute;top:15px;left:15px;display:grid;gap:6px;max-width:70%}.tag{display:inline-block;background:#05233ddc;border:1px solid #69bde9a0;border-radius:9px;padding:7px 10px;font-weight:650;font-size:13px}#aim{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;text-shadow:0 2px 4px black;pointer-events:none}#prompt{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:#fff;color:#173954;border:2px solid #64c1f2;border-radius:12px;padding:10px 18px;text-align:center;font-weight:750;max-width:90%;font-size:14px}button,select{font:inherit;border:0;border-radius:10px;padding:11px 15px;cursor:pointer}button{background:#225781;color:white;font-weight:700}button:hover{filter:brightness(1.2)}button:disabled{opacity:.4;cursor:not-allowed}.primary{background:#2674e6}.gold{background:#eeb23e;color:#2d2416}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:11px;background:#102e48}.actions button{min-width:130px}.help{max-width:1100px;margin:8px auto 20px;padding:0 15px;color:#bdd4e7;font-size:14px;line-height:1.6}.overlay{position:absolute;inset:0;background:#031b31bf;display:flex;align-items:center;justify-content:center;padding:13px;z-index:10}.modal{background:#f7fbff;color:#183550;border:3px solid #7fc1ed;border-radius:18px;width:min(640px,100%);max-height:95%;overflow:auto;padding:23px;box-shadow:0 30px 100px #001d3ea8}.modal h2{margin:0 0 10px}.modal p{line-height:1.5}select{background:#e7f3ff;border:1px solid #aecde4;color:#183550;width:100%}label{font-weight:700;display:block;margin:9px 0 4px}.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.row button{flex:1}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.item{background:#e6f1fb;border:1px solid #bbd5e8;padding:10px;border-radius:10px}.item strong{display:block}.item small{display:block;margin:5px 0;color:#546d82}.item button{width:100%;margin-top:5px}.touch{position:absolute;bottom:58px;left:12px;display:grid;grid-template-columns:repeat(3,46px);gap:4px;opacity:.85;z-index:2}.touch button{padding:9px 0;touch-action:none;background:#173d5ebd;border:1px solid #c2edff88}.touchRight{position:absolute;bottom:60px;right:12px;display:flex;flex-direction:column;gap:5px;z-index:2}.touchRight button{background:#173d5ebd;touch-action:none}#notify{position:absolute;top:13%;left:50%;transform:translateX(-50%);background:#fff9d7;color:#4c3609;border:2px solid #ebc55f;border-radius:10px;padding:9px 13px;font-weight:bold;display:none;z-index:5;text-align:center}@media(max-width:600px){.game{min-height:490px;height:67vh}.actions button{min-width:100px;font-size:12px;padding:10px 8px}.modal{padding:15px}.cards{grid-template-columns:1fr}#hud{max-width:76%}.tag{font-size:11px}}
+.logoPreview{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #9fbfce;border-radius:13px;background:#e4eef8;margin:12px 0}.logoPreview img{width:84px;height:84px;object-fit:contain;background:#fff;border-radius:10px;border:1px solid #acc5d5}.logoPreview strong{font-size:20px;overflow-wrap:anywhere}.designerGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.designerGrid input[type=color]{width:100%;height:44px;border:1px solid #9cb4c6;border-radius:8px;background:white}.designerInput{width:100%;padding:11px;font:inherit;border:1px solid #a8c4d8;border-radius:9px}.designerInfo{font-size:13px;color:#4c6479}.liveryBanner{height:26px;border-radius:7px;margin-top:8px}@media(max-width:500px){.designerGrid{grid-template-columns:1fr}}</style></head><body><header><h1><img id="gameBrandIcon" alt="Emoji Flight logo" style="width:35px;height:35px;border-radius:9px;object-fit:cover;vertical-align:middle;margin-right:7px" src="data:image/jpeg;base64,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8cP/AIB+f/ZYmGi/3P54LdC/Ww/823zB/BcjbzbncqyLzOFov4Iz/wBKj/ZKfwRm/pUf7JW0V2Ncacef/wCliYaPhIfzwUjZXUj/AJFVC7weFzBzXfJcD4FRY6SqP6TF+yVgaVrWcWVMQPcSFvbiWJDr0vk4fdYGnpzul9FK0UZjtF9g/k60EdnSH7wuyx2ooPlRw1AHaRn7lLZisn/lp3jwv8vZanUzf6vB8bLeql9uWqwXQaappOAxPVYP7DD/AIvcrWhuNXkCqtk0f1o8PCiustmVo1pI+vikfQXJwAMwYcPwMDface8YPir7Da2ndKHOvpzBB8jYqrr6eYxFrOPaqjsO1nU9gp46ZlRHW0zBhsdU0uLR2BwIPqu/dttuprjSugp2Utu3hgyQNJf5FxOPcsVuxHVlNIRTijrGdTmTbno4BcdLsU1hUSBssNJTN63SVAOPJuV0pNE45zZc8BWtGQXt+cVAZJHSSOkkcXPcS5znHJJPMkq7ti2h5aFjtS3GIskmZuUjHDiGHm/z5Duz2rZaS2LWuyzx1l4nF0qWHLY93dhafDm7z4dyssDAwBgBQa2va9uzi3cSp1Fh7o3bSXfwCyiIqVXaIiIiIiIiIiIiIiIiIiIiIiIiIi+JZWQsL5HbrQvhIaLncvoF9AvtcNRVQUjN+eVsY+sea1lTWXWrJZQUjoGfzsuAT4A8l0m6WqKiTpKyty488AuPvKpZ8Rnd8NHCXnmdG+tr/mqlsp2DWV9uzeVzVWrIWEtpYXSn6T/ZH4rTVN/uNTkGfomnqjG7681IIdMW+PG/0kp+s7A9F34bZRQfydLEO/dyfVVMmH4xWf5pgwchf6e6lNnpIuoy57VAhHUVL8hskzj14Liu1FZLlL8mkkH63s/ap4AAMAADuWVhH0Si3yyk9wA919dijv6tAUOj0tXv+WYo/F2fsXaj0i79JVgfqs/1UnRWMfRqgZvaT3k/Sy0OxCc7jbwWij0pRt+XNM/wIH3Lss05bWc4XP8A1nlbRFPZhFDH1Ym+Iv8ANaHVUzt7iumy0W+P5NHF5tz9q52U8MfyIY2+DQFyoprKeGPqMA7gFpMjnbyseHBZRFvWCIiIiLCyiIsLKIiLCyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiLCyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIsIiyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIsLKIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi//Z">✈️ Emoji Flight <small style="font-size:12px;color:#94dcff">YOUR 3D AIRPORT • FIRST PERSON</small></h1><div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center"><div id="bonusTimer" aria-live="polite" style="background:#174c56;color:#bcffea;padding:8px 13px;border-radius:18px;font-weight:750;font-size:13px">⏱️ 10:00 → +200 🪙</div><div id="coins">🪙 500</div></div></header><main><div class="game" id="game"><canvas id="view"></canvas><canvas id="labels"></canvas><div id="hud"><span class="tag" id="where">🏢 Terminal — London Heathrow</span><span class="tag" id="mission">Create a flight and stock the food trolley to begin</span><span class="tag" id="flightinfo">No flight selected</span></div><div id="aim">＋</div><div id="prompt">Use arrow keys or WASD to walk • Q/E to turn</div><div class="touch"><span></span><button data-hold="forward">▲</button><span></span><button data-hold="strafeleft">◀</button><button data-hold="back">▼</button><button data-hold="straferight">▶</button></div><div class="touchRight"><button data-hold="turnleft">↶ Turn</button><button data-hold="turnright">Turn ↷</button><button id="touchact">✋ Use</button></div><div id="dangerHUD" style="display:none;position:absolute;top:136px;right:12px;z-index:5;background:#622559ed;border:2px solid #f5a0e0;border-radius:10px;padding:9px;color:white;font-weight:bold;max-width:220px">👿 Madame Killer!<div id="dangerText">Stop her before passengers are lost!</div></div><div id="flightHUD" style="display:none;position:absolute;top:76px;left:12px;z-index:6;background:#09233be8;padding:12px;border:1px solid #75cfff;border-radius:12px;min-width:235px;font-weight:bold;line-height:1.8"></div><div id="flightControls" style="display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:7;gap:7px;flex-wrap:wrap;justify-content:center;background:#082b46db;padding:10px;border-radius:12px"><button id="assistTakeoff" class="primary">🛫 TAKE OFF (RUNWAY)</button><button id="assistLanding" class="gold">🛬 DESCEND + TAXI TO JETWAY</button><button id="throttleDown">➖ THROTTLE</button><button id="pitchUp">⬆ CLIMB</button><button id="pitchDown">⬇ DESCEND</button><button id="turnPlaneLeft">↶ LEFT</button><button id="turnPlaneRight">RIGHT ↷</button><button id="throttleUp" class="primary">➕ THROTTLE</button><button id="exteriorView">👁️ VIEW PLANE LOGO</button><button id="returnCabin">🚪 CABIN</button></div><div id="notify"></div><div class="overlay" id="overlay"><div class="modal" id="modal"></div></div></div><div class="actions"><button class="primary" id="plan">🛫 CREATE FLIGHT</button><button id="planes">🛩️ AIRCRAFT SHOP</button><button id="airlineCreator" class="gold">🎨 MAKE YOUR AIRLINE</button><button id="destinations" class="gold">🌍 DESTINATIONS</button><button id="shop">🛍️ TERMINAL SHOPS</button><button id="cafe" class="gold">🍔 AIRPORT CAFÉ</button><button id="catering" class="gold">🛒 BUY FLIGHT FOOD & DRINKS</button><button id="interact">✋ INTERACT (Space)</button><button id="sit" class="gold">💺 SIT / STAND (H)</button><button id="deck" class="gold">🪜 UPPER / LOWER DECK (J)</button><button id="pilot" class="primary">🧑‍✈️ FLY PLANE</button><button id="testPilot">🛫 FLY NOW (FREE TEST)</button><button id="blaster" style="display:none;background:#7431aa">🔫 STOP MADAME KILLER (B)</button><button id="help">❔ HELP</button></div><div class="help"><b>Actual WebGL 3D:</b> Walk around the airport, past check-in counters and through security to boarding gates. Look out through the floor-to-ceiling glass to see airplanes outside. Before boarding, BUY FLIGHT FOOD & DRINKS with coins. After takeoff, passengers request different food or drinks; serve the right item from your stock. <b>10-minute reward:</b> Stay in the game for 10 minutes to earn 200 bonus coins, then the timer restarts. <b>Rare event:</b> On 1 in 20 flights Madame Killer may appear. Stop her with the cartoon blaster button or B in the cabin; every passenger lost costs 10 coins. <b>Controls:</b> ↑/↓ move, ←/→ strafe, Q/E turn, Space interact, H sit/stand, J stairs on A380/B747, drag mouse to look around. Use the buttons if you prefer. Use MAKE YOUR AIRLINE to design a logo, use the Emoji Flight logo, or upload your own picture. Name your airline and colour its planes. Use VIEW PLANE LOGO when piloting to see the exterior. Click FLY NOW for a quick test (automatic takeoff), or board normally. Use TAKE OFF and LAND buttons when in pilot mode. Begin with 500 coins, a free A320, and London, Paris and Tokyo unlocked. Buy more destinations with coins. The A380 has a full upper deck; the 747 has a shorter upper deck. Use J near the cabin stairs to switch levels. Other aircraft are locked until you earn enough. Purchases and coins are saved in your browser.</div></main><script src="/account.js"></script><script>
+(async()=>{
+try { await window.flightAccount.init(); } catch (error) {
+ document.body.textContent='Could not load your account. Check the server and reload the page. '+error.message;
+ return;
+}'use strict';
+const $=id=>document.getElementById(id),gl=$('view').getContext('webgl',{alpha:false,antialias:true});if(!gl){$('modal').innerHTML='<h2>WebGL is unavailable</h2><p>Open this file in Chrome or Edge with hardware acceleration enabled.</p>';return;}
+const vert=`attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uVP;uniform mat4 uModel;varying vec3 vColor;varying float vFog;void main(){vec4 pos=uVP*uModel*vec4(aPos,1.0);gl_Position=pos;float light=max(0.30,dot(normalize(aNormal),normalize(vec3(-0.45,0.85,0.55))));vColor=aColor*(0.52+light*0.48);vFog=clamp((pos.w-10.0)/85.0,0.0,0.55);}`;
+const frag=`precision mediump float;varying vec3 vColor;varying float vFog;void main(){gl_FragColor=vec4(mix(vColor,vec3(0.61,0.79,0.90),vFog),1.0);}`;
+function shader(type,src){let x=gl.createShader(type);gl.shaderSource(x,src);gl.compileShader(x);if(!gl.getShaderParameter(x,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(x));return x;}
+let program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vert));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,frag));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+const modelLoc=gl.getUniformLocation(program,'uModel');const identity=new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);const ap=gl.getAttribLocation(program,'aPos'),an=gl.getAttribLocation(program,'aNormal'),ac=gl.getAttribLocation(program,'aColor'),vpLoc=gl.getUniformLocation(program,'uVP');gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);
+let vertices=[], staticMesh=null;
+const palette={floor:'#cad6df',wall:'#f2f6f8',dark:'#19364c',navy:'#17446b',blue:'#2677aa',glass:'#a5d9ed',white:'#ffffff',grey:'#9daebb',silver:'#d9e5ec',black:'#233442',light:'#e7f4ff',gold:'#f6c756',yellow:'#f3dc65',red:'#e95f5b',green:'#59b998',pink:'#f5a6ba',stripe:'#457a9f',tarmac:'#5c6b72',grass:'#8bad88',leather:'#355d86',seatlight:'#527ca4',cushion:'#88a8c4',chrome:'#c5d4df',wood:'#a77c52',shopglass:'#c6ecf5',orange:'#ef9e45',purple:'#9567b5'};
+function rgb(s){if(Array.isArray(s))return s; s=palette[s]||s;let n=parseInt(s.slice(1),16);return [(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]}
+function tri(a,b,c,color){let col=rgb(color),u=b.map((n,i)=>n-a[i]),v=c.map((n,i)=>n-a[i]),nn=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]],length=Math.hypot(...nn)||1;nn=nn.map(v=>v/length);for(let p of [a,b,c])vertices.push(...p,...nn,...col);}
+function quad(a,b,c,d,color){tri(a,b,c,color);tri(a,c,d,color)}
+function box(x,y,z,w,h,d,c){let X=x-w/2,Y=y-h/2,Z=z-d/2,x2=x+w/2,y2=y+h/2,z2=z+d/2;let p=[[X,Y,Z],[x2,Y,Z],[x2,y2,Z],[X,y2,Z],[X,Y,z2],[x2,Y,z2],[x2,y2,z2],[X,y2,z2]];quad(p[0],p[3],p[2],p[1],c);quad(p[4],p[5],p[6],p[7],c);quad(p[0],p[4],p[7],p[3],c);quad(p[1],p[2],p[6],p[5],c);quad(p[3],p[7],p[6],p[2],c);quad(p[0],p[1],p[5],p[4],c)}
+function cylinder(x,y,z,r,depth,color,axis='z',r2=r,segments=12){let pts=(d,ang,radius)=>axis==='z'?[x+Math.cos(ang)*radius,y+Math.sin(ang)*radius,z+d]:axis==='x'?[x+d,y+Math.cos(ang)*radius,z+Math.sin(ang)*radius]:[x+Math.sin(ang)*radius,y+d,z+Math.cos(ang)*radius];for(let i=0;i<segments;i++){let a=i*2*Math.PI/segments,b=(i+1)*2*Math.PI/segments;let p1=pts(-depth/2,a,r),p2=pts(-depth/2,b,r),p3=pts(depth/2,b,r2),p4=pts(depth/2,a,r2);quad(p1,p2,p3,p4,color);tri(pts(-depth/2,0,0),p2,p1,color);tri(pts(depth/2,0,0),p4,p3,color)}}
+function wedge(points,c){let [a,b,d,e]=points;quad(a,b,d,e,c)}
+function makeMesh(){let arr=new Float32Array(vertices);let buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.STATIC_DRAW);vertices=[];return {buffer,n:arr.length/9}}
+function drawMesh(mesh,model=identity){if(!mesh)return;gl.uniformMatrix4fv(modelLoc,false,model);gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);let stride=36;for(let [attr,offset] of [[ap,0],[an,12],[ac,24]]){gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,3,gl.FLOAT,false,stride,offset)}gl.drawArrays(gl.TRIANGLES,0,mesh.n)}
+// Each aircraft has ten times its original passenger capacity. Non-starter prices doubled.
+const planeTypes={A320:[0,40,220],B737:[1000,50,280],A321:[1600,60,340],A330:[3400,80,490],A350:[5600,100,650],B777:[7800,120,800],B747:[11000,140,1100],A380:[14000,160,1400]};
+const SEAT_X=[-3.20,-1.75,1.75,3.20], SEAT_SPACING=2.18;
+// A380: full double-deck interior. B747: short upper deck at the front.
+const hasUpper=()=>plane==='A380'||plane==='B747';
+const upperCount=()=>plane==='A380'?80:plane==='B747'?28:0;
+const lowerCount=()=>planeTypes[plane][1]-upperCount();
+const deckFor=i=>hasUpper()&&i>=lowerCount()?1:0;
+const localSeat=i=>i-(deckFor(i)?lowerCount():0);
+const seatRows=()=>Math.ceil(Math.max(lowerCount(),upperCount())/4);
+const cabinLength=()=>Math.max(36,seatRows()*SEAT_SPACING+11);
+const seatZ=i=>-4-Math.floor(localSeat(i)/4)*SEAT_SPACING;
+const seatX=i=>SEAT_X[i%4];
+const DECK_HEIGHT=5.2;
+let cabinDeck=0;const ports=['London Heathrow','Paris Charles de Gaulle','Aberdeen','Amsterdam Schiphol','Lisbon','Porto','New York JFK','Beijing Capital','Tokyo Haneda','Chengdu Tianfu'];const airlines=['Air China','Air France','TAP Air Portugal'];
+// Airport access is a one-time coin unlock; both origins and destinations must be unlocked.
+// London, Paris and Tokyo (Japan) are free on all new and existing saves.
+const airportPrices={
+ 'London Heathrow':0,
+ 'Paris Charles de Gaulle':0,
+ 'Tokyo Haneda':0,
+ 'Aberdeen':600,
+ 'Amsterdam Schiphol':900,
+ 'Lisbon':1200,
+ 'Porto':1400,
+ 'New York JFK':4500,
+ 'Beijing Capital':5800,
+ 'Chengdu Tianfu':6500
+};
+const startingAirports=['London Heathrow','Paris Charles de Gaulle','Tokyo Haneda'];
+const airportFlag={
+ 'London Heathrow':'🇬🇧','Paris Charles de Gaulle':'🇫🇷','Tokyo Haneda':'🇯🇵',
+ 'Aberdeen':'🏴','Amsterdam Schiphol':'🇳🇱','Lisbon':'🇵🇹','Porto':'🇵🇹',
+ 'New York JFK':'🇺🇸','Beijing Capital':'🇨🇳','Chengdu Tianfu':'🇨🇳'
+};
+
+let saved={};try{saved=JSON.parse(window.flightAccount.storage.getItem('emoji3d_screenshot_airport_v1')||'{}')}catch(e){}let coins=Number(saved.economyVersion===2 ? (saved.coins??500) : 500),owned=new Set(saved.owned||['A320']),inventory=new Set(saved.inventory||[]),unlockedAirports=new Set([...(saved.unlockedAirports||[]),...startingAirports]);owned.add('A320');let plane='A320',airline='Air France',from='London Heathrow',to='Paris Charles de Gaulle',gate='A12',scene='terminal',stage='no-flight',served=0,flightActive=false,checked=false,security=false,boarded=false,landed=false,arrival=false;
+// Airline catering: stocked with coins before boarding; separate from food you personally eat.
+const cateringItems=[
+ {id:'sandwich',emoji:'🥪',name:'Sandwich',price:24},
+ {id:'pizza',emoji:'🍕',name:'Pizza',price:36},
+ {id:'burger',emoji:'🍔',name:'Burger',price:40},
+ {id:'croissant',emoji:'🥐',name:'Croissant',price:20},
+ {id:'cake',emoji:'🍰',name:'Cake',price:28},
+ {id:'water',emoji:'💧',name:'Water',price:14},
+ {id:'juice',emoji:'🧃',name:'Orange juice',price:18},
+ {id:'coffee',emoji:'☕',name:'Coffee',price:22}
+];
+let cateringStock={};for(const item of cateringItems)cateringStock[item.id]=Math.max(0,Math.floor(Number(saved.cateringStock?.[item.id])||0));
+function requestedItem(index){return cateringItems[(index*7+Math.floor(index/8))%cateringItems.length];}
+function orderNeeds(){let needs={};for(const item of cateringItems)needs[item.id]=0;
+ const count=planeTypes[plane][1];for(let i=0;i<count;i++)if(!servedSeats.has(String(i))&&!lostPassengers.has(String(i)))needs[requestedItem(i).id]++;
+ return needs;
+}
+function stockTotal(){return cateringItems.reduce((n,item)=>n+(cateringStock[item.id]||0),0)}
+function buyCatering(id,qty){const item=cateringItems.find(x=>x.id===id);qty=Math.floor(qty);if(!item||qty<1||qty>10000)return false;
+ const cost=item.price*qty;if(coins<cost){notify('Not enough coins for '+item.name+'!');return false}
+ coins-=cost;cateringStock[id]=(cateringStock[id]||0)+qty;save();refresh();notify('Loaded '+qty+' '+item.emoji+' '+item.name+' for 🪙 '+cost);return true;
+}
+function showCatering(){
+ const needs=orderNeeds();const shortage=cateringItems.map(item=>({...item,required:needs[item.id],missing:Math.max(0,needs[item.id]-(cateringStock[item.id]||0))}));
+ const cost=shortage.reduce((n,item)=>n+item.price*item.missing,0);
+ const canBuy=scene==='terminal'&&!boarded;
+ modal(`<h2>🛒 Flight Food & Drinks Cart</h2><p>Passengers order different things! <b>Buy supplies with coins before boarding. Food and drink prices are doubled.</b> Serving the correct order earns 🪙 45. Stock stays in your cart until served. Your balance: <b>🪙 ${coins.toLocaleString()}</b>.</p>
+ <p><b>Aircraft:</b> ${plane} · ${planeTypes[plane][1]} passengers · <b>Stock:</b> ${stockTotal()} items. ${canBuy?'✅ Preflight purchases are available.':'⚠️ Already boarding or flying: the cart is locked. Buy supplies for the next flight.'}</p>
+ <div class="cards">${shortage.map(item=>`<div class="item"><strong>${item.emoji} ${item.name}</strong><small>🪙 ${item.price} each · On board: <b>${cateringStock[item.id]||0}</b> · Remaining orders: ${item.required}</small>
+ <div class="row"><button data-foodbuy="${item.id}" data-qty="1" ${!canBuy||coins<item.price?'disabled':''}>+1 · 🪙 ${item.price}</button><button data-foodbuy="${item.id}" data-qty="5" ${!canBuy||coins<item.price*5?'disabled':''}>+5 · 🪙 ${item.price*5}</button></div></div>`).join('')}</div>
+ <p>🧾 Buy all missing items for the current flight: <b>🪙 ${cost}</b>. ${cost<=coins?'You can afford it!':'Not enough coins — buy what you can, then earn more coins from flights.'}</p>
+ <div class="row"><button class="primary" id="buyAllCatering" ${!canBuy||cost===0||coins<cost?'disabled':''}>🧳 STOCK EVERYTHING · 🪙 ${cost}</button><button id="cateringDone">${canBuy?'Return to airport':'Back to cabin'}</button></div>`);
+ $('cateringDone').onclick=close;
+ $('buyAllCatering').onclick=()=>{if(!canBuy||coins<cost)return;for(const item of shortage){if(item.missing)buyCatering(item.id,item.missing)}showCatering();};
+ document.querySelectorAll('[data-foodbuy]').forEach(b=>b.onclick=()=>{if(!canBuy)return;buyCatering(b.dataset.foodbuy,Number(b.dataset.qty));showCatering()});
+}
+function showPassengerOrder(index){
+ if(stage!=='serve'||!flight.airborne){notify('Take off and complete the safety demonstration before serving!');return}
+ if(servedSeats.has(String(index))){notify('This passenger was already served!');return}
+ const wanted=requestedItem(index);
+ modal(`<h2>💺 Passenger ${index+1} — Food & Drink Order</h2>
+ <p style="font-size:19px">🗣️ “Can I please have <b>${wanted.emoji} ${wanted.name}</b>?”</p>
+ <p>Your trolley has <b>${cateringStock[wanted.id]||0}</b> ${wanted.name}. Choose the <b>correct</b> item to serve this passenger and earn 🪙 45.</p>
+ <div class="cards">${cateringItems.map(item=>`<div class="item"><strong>${item.emoji} ${item.name}</strong><small>In trolley: ${cateringStock[item.id]||0}</small><button data-serve="${item.id}" ${(cateringStock[item.id]||0)<1?'disabled':''}>SERVE ${item.emoji}</button></div>`).join('')}</div>
+ <div class="row"><button id="closeOrder">Cancel order</button></div>`);
+ $('closeOrder').onclick=close;
+ document.querySelectorAll('[data-serve]').forEach(b=>b.onclick=()=>{
+  const chosen=b.dataset.serve;
+  if(chosen!==wanted.id){notify('❌ That is not what passenger '+(index+1)+' ordered. Try again!');return}
+  if((cateringStock[chosen]||0)<1){notify('You have run out of '+wanted.name+'!');return}
+  cateringStock[chosen]--;servedSeats.add(String(index));served++;coins+=45;save();close();
+  if(served+lostPassengers.size>=planeTypes[plane][1]){stage='land';notify('🎉 All '+served+' passengers served! Return to cockpit and LAND!')}
+  else notify('✅ Correct order! '+wanted.emoji+' '+wanted.name+' served · +45 coins · '+served+'/'+planeTypes[plane][1]);
+  refresh();
+ });
+}
+const save=()=>{try{window.flightAccount.storage.setItem('emoji3d_screenshot_airport_v1',JSON.stringify({coins,economyVersion:2,owned:[...owned],inventory:[...inventory],unlockedAirports:[...unlockedAirports],cateringStock}))}catch(e){}};function refresh(){coins=Math.round(coins);$('coins').textContent='🪙 '+coins.toLocaleString();$('where').textContent=scene==='terminal'?'🏢 Terminal — '+(arrival?to:from):scene==='bridge'?'🚶 Jet bridge':scene==='cabin'?'✈️ '+plane+' cabin'+(hasUpper()?(cabinDeck?' · UPPER DECK':' · MAIN DECK'):''):scene==='flight'?'🧑‍✈️ Flying '+plane:'✈️ Airport';$('flightinfo').textContent=flightActive?`${airline} · ${plane} · ${from.split(' ')[0]} → ${to.split(' ')[0]}`:'No flight selected';$('mission').textContent=({ 'no-flight':'Create a flight to begin','checkin':'Find CHECK-IN desks','security':'Go through SECURITY','gate':'Find GATE '+gate,'bridge':'Walk to the aircraft door','takeoff':'Sit in the cockpit — the pushback tug starts first, then TAKE OFF','safety':'Airborne! Do the safety demonstration at the crew station','serve':`Serve ordered food & drinks ${served}/${planeTypes[plane][1]} · +45 coins each`,'land':'All served — return to the cockpit and LAND','exit':'Leave through the front aircraft door','done':'Flight completed! Create another flight','fly':'Pilot the aircraft: accelerate, climb and land'})[stage]||stage;refreshPrompt();}
+// User-created airlines are stored locally; uploaded photos never leave the browser.
+const customAirlinesKey='emoji_flight_custom_airlines_v1';
+let customAirlines=[];try{let a=JSON.parse(window.flightAccount.storage.getItem(customAirlinesKey)||'[]');if(Array.isArray(a))customAirlines=a.filter(a=>a&&typeof a.name==='string').slice(0,20)}catch(e){}
+const builtinEmojiFlightLogo='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAcFBQYFBAcGBgYIBwcICxILCwoKCxYPEA0SGhYbGhkWGRgcICgiHB4mHhgZIzAkJiorLS4tGyIyNTEsNSgsLSz/2wBDAQcICAsJCxULCxUsHRkdLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCz/wAARCAGAAYADASIAAhEBAxEB/8QAHAABAAICAwEAAAAAAAAAAAAAAAYHAQUDBAgC/8QAURAAAQMDAQQHAgkGCwcEAwEAAQACAwQFEQYHEiExE0FRYXGBoSKRFBUyQlJiscHRFyNDcpKTFiQzU1RVgqKy0uEIJjVElMLwNEVzg2NkhPH/xAAcAQEAAgMBAQEAAAAAAAAAAAAABAUCAwYHAQj/xAA5EQABAwIDBAgFBAMAAgMAAAABAAIDBBEFEiETMUFRBjJhcYGRodEiscHh8BQVI0IzUvFDYnKC4v/aAAwDAQACEQMRAD8A9IIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIsLKIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiLT3nVNpsWW1dSDNjhDH7Tz5dXmoRctqNZKXNt1HHTt6nynfd7uQ9VNgoZ59WN05lVtVilLSm0jteQ1P53qz0VGVerL9Wk9LdKgA9Ubtwf3cLXPrKqQ5kqZnn60hKsm4I/wDs8fnkqV/SaMH4Iye82916E5ovPTaqoYcsqJWntDyF36XU98oyOhulSAOpz98e45X12CP/AKvHl/1GdJoyfjjI7jf2V7Iqrt206505Da6nhq2dZb+bd6cPRTWy6zs96LY45/g9Q79DN7JPgeRVdPh88Au5txzCt6bFqWpOVrrHkdPst+iIoCtURFhEWUREREWFlEREREREREREREREREREREREREREREREREREREREREREREREREREREREREREWCQ1pJIAHMlEXzLLHBC+WV7Y42DLnOOAB2qtdTbQp6lz6SzuMMHI1GMPf+r2Dv5+C6WtNVvvVU6jpHkUETur9K4dZ7uz3qK7uV01BhrWgSTC55clxWK4y55MNObDiefd2fNfDy6R5c8lznHJJOSVjdXLurG6r665bKvjCxurl3Uwvl19yrj3U3VyYTdS6ZV8bqbvFfeEwl0yqW6a15V2tzKa4ufVUfLePGSMdx6x3K0aWqgraWOoppWywyDLXtPAhUDhSXR+p5LDXCGdxdQTH22/QP0h96pK/DmyAyRCzuXP7rpcKxd8LhDObt58vt8lbyLDXNe0OaQ5rhkEciFlcuu4RERERYWURERERERFhEWURERERERERERERERERERERERERERERERERERERfL3sijdJI4MY0ZLnHAARF9LW3bUFssrM1lS1r8ZEbfaefJQ3Umv5JHPpLMdxnJ1SeZ/VHV4qDSPfLI6SR7nvccuc45JPirulwpzxmmNhy4/Zc1W46yIllOMx58PupxcNpsziW26iaxvU+c5PuH4rQ1GtNQVJ/4g6MdkbWt+5aTCYV1HRwR9Vg+fzXNS4jVSm7pD4afJbNuqb605F1qfN2VzT6wvlTQS0k1aXxyt3XEsAdjsyAulb7PcLq/doqSWbtcB7I8SeClFDs0rZcOrayKnH0Yxvu+4LCV1JEf5LA92q2QMr5xaIuIPabeuihGFkBWnT7ObLCAZn1E5HPefuj0XbbpXTEHyqSn4fTlJ+0qLJjVMzff0+pU2Po9VP3kDz+gVQ7qbquD+Dul5OHwSj8n4+9cUuhdPVI/NwOj74pj95K1sxymebD6e6zd0dqmjePX2VS4WN1WLWbMoSCaK4PYepszQ4e8YUZuejrzbAXPpTPEP0kJ3x7uY9ysIq6CXRrtfJVs+GVUGrmadmvyWhwmF97uOfNMKZdV9l8bqbq+91MJdLL43VjdXJuphLpZWbs8vJrrS+3zOzLR43SeZYeXu5e5S9VDoutNDqql44ZOTC7vzy9cK3lyOJQiKckbjqu/waoM1MA7e3T2REwirVcoiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiLDnNYwucQ1rRkk8AAqs1dqyS8zuo6RxbQMPMcDKe093YFu9f38xs+KKZ+HPG9O4dnU3z5lV/hdDhtGABM/fw91yOM4gXONNEdBv9vdfAamF94Uh01pOovsgmkJhomn2pMcX9zfxVzJK2Jud5sFzsNO+d4ZGLkrT2201l3qRBRQOld1nk1o7SepWDZtAUFAwTXJwq5hxLTwjb+Pn7luHS23TdC2mp4mswOEbObu8n7yo/V3Csusu4S4gn2Ymcv9V57jfS5lOdjFq7kN/ieHcNV3+F9GmACSbXv3eA495W+qL/Q0LOhpWCTd4BsY3WD/AM7lqKjUddN8hzYG9jBx95X3S6fe7Dql+4Pot4n3rmqH2y2AsjhbNMOo8ceJXDVNRidQwy1EgiZ5H019V1kcdPGcrG5j+eC0stTNOcyzPf8ArOJXGuapq5KuTefugDk1owAuFcfKQXmzi7tP4VaNFhussL6a5zDlri09oOEwi1g21CyXcgvFfT43ahzh2P8AaHqtxSaoaSG1cO79dnEe5RsrHJWlLi9ZSn4HkjkdR6/RRpKWKTeFJ7jp2zaihMwaxsp5TQ8HZ7x1+ar++6VrrG4ve3pqbPCZg4eY6lvoKmallEkMjmOHWOtSa23yG4N+DVbWtkcN3BHsv7v9F6RgfTASERTaHlwPceHcuTxTo7HKC9m/mPqOKqHCbqm2qdFmka+vtjCYRxkgHEs7293coZhenQ1DJ25mFedVNJJTPySD7r43U3VyYTdW+6i2WKeR9NUxTs+XE8Pb4g5W2rNW3yscS6vkjafmxewB7uK1WE3VrcxjzdwBK2skkjBaxxAPJdgXa5B298YVW929M78V36PV98onDFa6Zv0Zhvj8fVafdWcL46KNws5o8lkyeVhu1xHirHsuvaStc2C4MFHM7gH5zGT49Xn71LQQQCDkHrVFFqmGjdUPo5mW2ukLqZ53YnuP8mezw+xUtZhwAL4fL2XR4fjDnOEVRx4+/urEWURUS6lERERERERERERERERERERERERERERFhZRERERERda4Vsdut09XJ8mFhdjt7AuyojtCrTFaoKRpwaiTed4N/wBSFvp4trK1nNRaubYQuk5D14KvaqeWsq5amZ29JK4vce8rhwuTC7totUt3ucVJDw3zlzsfJb1ldiXNY250AXnbWOkfYakrYaU0y691RmnBbRRH2zyLz9Efep3dLrDaYG0dGxglDcBoHsxjq4fcs11TTabs8VNSsAfjchZ2nrcftUapKaWvq90uLnOO9I8+pXlfSbpBK6QUtN1z6X+p9F6hguER00W0k8e37D1XLS0lRc6lzi4nJy+RykUFLTW+AloDAB7T3cys/wAXttGOUcTB5k/eVHa+4yV0mOLYh8ln3lczanwZmd/xzH88B27z8rr46o2GjQuzcL2+bMVNlkfIu63fgtTzWcIuVqquWqftJTc/LuVjHG2MWaFjCyiKKtiIi+ZZWQxPlleGRsBc5x5ADiSvoF9F8XxVVVPRUz6iqmjghjGXSSODWjzKhtbta01SymOF1VWY+dFHhvvcQqx1trGq1VdXjfcy3ROIgh6sfSPaT6Lq2jRmoL5CJqC2yPhdyleQxh8CcZ8l3FL0dp4ohLXvsTwvYDvPNVUlY9zssQVw2naZpq7zthFU+jldwAqWbgJ/W4j1Ut4YBByOeQvOl10PqKyQGartsnQj5UkREjW+O7nHmpRsx1rUUdxhsVfK6akqHblO5xyYnHkP1Tyx1FR67AYTCaigfmA3i4PkR8lnFVuzZJRZeiLHejIW0lU7LuTHnr7io3rPTIopXXKjZinefzrAP5Nx6x3FY4g8OaltorY7vbn0tSBI8N3ZAfntPWrror0ge14ppjc8O0cu8cFVY1hTKiMuA+x9uaqYBZwtlfLS+zXWWlOSz5Ubj85p5fguhhewteHtDm7ivLHxOjcWO3hfGFjC+8JhZXWFl8bqbq5MLGEumVfG6sbq5MJupdMqtTSlzddLBE+R2ZovzTz2kcj7sLdKDbO5iJa6n6iGvHqPwU5XI1kYjmc0bl32HSmamY52/d5aLCynIZK19VfrRREipulHCR1PnaD9qjBpdoAprnBurjZbBFqGas09IcNvdAf/AOhv4rY09ZTVbd6mqYp29sbw4eiycxzd4XxsjHdUgrmREWCzRERERERERERERERERFhzmxsL3uDWtGSScABQTUGt5JHOprS4sjHB0+OLv1ewd6kQU753WYolVVx0rc0h8OJUsuV9t1pb/G6lrX9UbfacfIKMVe0QBxFHQEj6Uzseg/FQhznSPL3uLnOOSSckphXsWGxMHx6lcvPjNRIf4/hHqpT+UG6b2RBSgdm678VqL5fKi/TQyzxsjMTS0BmcHJ58VrgEwpbKeKN2ZjbFQJKueVuSRxIXxjCsnRtqZarK6uqMNlqG9ISfmsHIfeoTY7b8aXmnpiDuOdl/6o4lTvV1cKa2soozuum5gdTB/wCBUXSDERR0znHgL+w8Sr7o7QfqJs57h9T5KPVlc+63OSrdkMHsxtPzW/8An2rfWoRUFrNVMcdJxz146go3A3dhb38VzPmkfGxjnuLGcGgngF4XTYgYqh9S8Znm9u88V6fNCHtEbdAPkuxXV8ldNvO9lg+S3s/1XWWAq22jbQ5bVM+zWeQNqgMT1A4mLPzW/W7+rx5a6enqMTqMrdXHUk8F8e9kDOxTW76osth4XG4wwP8A5vO8/wDZGStENq2lC7BqqgD6Rp3YVEPe+WV0kj3Pe85c5xyXHvK7bLLdJYulZbax8eM7zYHEe/C7NnRekjb/ADPN/AD6qsNdIT8IXo+1X213yAy26uhqQOJDHe03xbzC768t01VVW2uZU00slNUQnIc0lrmlXtoDWf8ACy2SMqmtZcKXAlDeAeDyeB1cuIVDi2AuoWbaI5meoUumqxKcrhYqXKJbTa91DoKtDSWuqC2DI7HHj6AqWrVaisFLqWzSW6rc9jHkPD2H2muHIjKpKKRkVRHJJ1QQT5qVK0uYQ3eqZ2b6VZqO/OkrI9+gowHyNPJ7j8lvhwJPh3q+WMbGxrGNDWNGGtAwAOwLUaa01R6WtXwGjL3hzt+SSTG893fhbjqU7GMRNfUFzT8A0Hv4rXTQ7FljvRR+PRGn4b828R29rKtrt8briGB30t3llSBFWRzyRX2biL6Gx3re5jXdYIuzb6x1DWxzt5A4cO0da4I4pJXbsbHPd2NGVsGWG4Oj3ugx3OcAVvpIalzxJTtJLddASsJHxgZXkaru60tzK6ytrYxmSn9sEdbDz+4qu91WzbaaY2f4LXR4ODGQSDlqrars1fSTSMfRz7rHEBwjJBGeeV+gMGqzLTjOLHQ2Olr7x4FeW45SZJtozW/LsWv3U3V9uY9hw9rmnvGFgDKvbrnbL5wsYyvvdK+4aaeolEcET5Xnk1oySvhNtSvoaToFw4wuxR2+quEwhpYHyvPU0cvE9SkEenKK10YrtR10dHCP0e/gnuz1nuC0Vz2nPOLVo62mLeO62Ux7z397Wfec+Cj7d0mkAv28B4qcKRsYDqg5eze4+HDxUttlPR6Ippa+9XGCAysDQzOTw48Otx8Ao1etsckzzT6dt5e5xw2WdpLj+qwfefJdW0bLr3f6r4x1PXSw9JxLC7fmcOzPJvr4KyrHpWy6djAttDHE/GHSkb0jvFx4qulfTRuL5DtHeQV1BFUvYI4hs2durvsqrZpvaDrEia4Tz00Duqpk6JvlG38FtKTYiMB1deiXdbYYOHvJ+5Tmr1rZKLUsNikqXGumeGbrWEtY48g49RP3rfrVJX1DQA0ZAd1gt0WG0ryS4l5G+5VQ3nZbp2zU/TV2p30bcZHSsaSfADifJVzXijt9dvWi6TVLG8peiMB8uOfsVvX3ZZJqPWNVdK26llFLu7sbG5kADQCMngBw7+aktm0Jp2xNb8FtsT5B+lnHSP8AHJ5eWFMZiLYmgveXk8LCyhSYW6Z5DGBgHG5JKpyz7QtXWhrZTPNV0Y5tqoy9uP1+Y96tPR20e26rkFI6M0VfjIiectkxz3XdfhzUvcyMxFj2tMeMEEcMKhaOGlum2qEWGNsVGysEjei4N3WDL3DsBIPvWoGGta85MpAvcfVbi2egcwCTMHG1j9FfiIio10CIiIiIiIiIij+r7sbdaehhdiepywEc2t6z93mtkUZleGN4rTNK2GMyO3BRzV2pHV87qCkfiljOHuB/lD+AUW3VyBqzhdZFG2FgY1cHPM+okMj1x7qzur7ws4Wy605Vx7qYX3hZxwS6WUu2f0eZqusI+SBE3z4n7l1dSVfwq+zYOWxfm2+XP1ypFpCIUul2SkfLL5D9n2BQqR5kldI7m9xcfMryXptVElsQ4n5afVep9F6cMhDuz56rvgYaAsoDwWV5eumWr1LdxYdNV1y4F0EZ3Aet54NHvIXnBkdVdLgGMD6iqqZOXNz3uP3lXjtUpqqq0NK2lifKWTMfI1gydwZyceOFEtkumZX3SW91dO9kUDNynL243nnmR4Dh5ruMEmiocPlqj1r/APB5lVNU10szY+Cl+j9n9v03SxzVEUdXciMvlcMiM9jB1ePMqXgntRZXH1FTLUyGSV1yVZsjbG3K0LRai0haNTU5ZXUwbMPkVEYDZG+fWO4rraR0RQ6RNQ+nnlqZ6gBrpJABho5AAKSrD3sijL5HtYwc3OOAPNbBW1GxNOHnIeCxMTM2e2q+lhRy6a/05a95rq9tTKPmU46Q+/l6qFXba5WzZjtVDHSt6pJjvu93IeqkU+E1dR1WWHM6fngvjpmN3lWrNNFTQulqJWRRt4l73BoHmVC73tSs9vJit7HXKUfOYd2Mf2jz8gqnud6uV5l6S41s1SeoPd7I8ByC6WOxdNSdG4mfFUOzHkNB7/JRX1JPVXoXS9/ZqWwxXFsPQOc5zHx5zuuB48VKLXJbWv3a2JxJPB+ctHiFW+ycn+B8oPVVPx+y1TdczORQ1r9m0ENO4i49VKA2sYBK7+r6/VNtpBJpi30c1Fu5dJEN+Vv9jkfLKpur1jqSpq3Sz3mtEjTjDZCwN8hgBW9R3CpoX70EhAPNp4g+SXWzab1ezFxphRVzuVTF7JJ7z1+a9SwHpbQPAhnYGO9PP/niuLxbA6p5MkMhI5KqINfappwNy91Rx9Mh/wBoK2lPta1XBgPqqefH85A37sLGpNl97sYdPSs+M6McekgHttHezn7sqFHgSDwI6l6KyOlqG5mAEdy4qSSspnZXucPEqyYdtN2wBVWuhnHXjeb95Xbj2t2mbhW6Wj7zG9p+1oVWJ3IcPp+DbdxKDEqni6/eAforbbtA0JUYM9oq6cnmWsGB+y5cVftPt1ti+BaStpfNLw6aZhzk9QbzcfH1Ue0vswvV/LJ6lht1CePSSt9t4+qz7zhW/p3RVk0ywGipQ+pxh1RL7Uh8+ryVVUOpYDa5ceV9PFXFLHVzjNYMHO1j4KubZs61Fq6sFz1PWTUzHcQJDvSkdgbyYP8AzCsi3WTT+i7c+WGOCjjaPzlTM4bzvFx+xabWGvajTmpKG1U9Cyf4QGvc95PEF27hoHXwWy11pabVlhjoKeqZTyMmbKHPBLSACCOHioksksuTbHKx3Ll3KbDFDFn2AzSN333371tpbnHLp+W525zKtnQOlhLTlsmASB7woVsv1TftS1Fzkup6WnZuGJ7YgxrXHOWg9fDHaphpuys09p2ktbJjOKdpBeRjeJJJ4dQyVsmMbG0NY0Nb2AYCh7SNjXsAvfcexTtnI9zJC61hqO37KIT7OLfU65OpJKube6RswpwAG77QMHPPHAHCmKLRXrWmn9Phwr7lE2Vv6GM78n7I5eaxLpZyG6m2gWYbDTgu0bfUrerp3O7UFmo3VVxq4qWFvznuxnuA5k9wVTX7bXVT70NioRTtPAT1HtP8mjgPPK09t0Rq/XNY2vuk0sML+PT1mc4+oz//AAKczDi0Z6h2UeqgSYmHHJTNLz6LYav2lVuqJPiXT0EzKac9GXNH52fPUAOQ9VNtnOhBpShfV1m6651LQHY4iFv0Ae3tP4LaaW0PZ9Jw5o4jLVOGH1MvF57h2DuCkawqKpmTY04s3jzKzpqN+029Sbu4cgiIirVaIiIiIiIiIq11ZWGs1BMM5ZB+ab5c/XKsonAyqhqHGSplkccl7y4+ZVrhrQXudyVFjTyI2s5n5LgwmF94W0tmm7hc8Oji6OE/pZOA8u1XT5GsF3Gy5uOJ0jsrBcrULu0Vorrif4rTPkH0sYaPM8FObbo+30WHzA1co63j2R4N/FbKruVFbWBssjWkDhGwZPuVPVYxFA0uuAOZ0CvabBJJD/IfAalRei0G87rq6qDe1kQyfefwUho9O2qgx0dIxzh86T2j6rigrrhdTmliFJTn9LIN5x8Au+G09ugdNUTcGjL5pn/eeAVKzFJa03jvl57ge4bz8u1XjcNp6UagX8z9lm4HctdUW8MROxjwKrFWbUltVapnR5LZInbuQRnI7CqyXC9LARLFfkfmupwcjI63YthGd6Np7Qvtdalflhb2LsBcMdCrJwsbLKwiIsVlaTVmohpixOrxTmoeXiNjM4GTniT2cFu1qtTWcX7TlXb+AfKzMZPU8cW+qkU2z2zdt1bi/csH3sbb1VFftP1FVkthlho2Hqhjyfe7KjNddK+5P362tnqT/wDkkLh7lwuppoqo00kbmztcWFmOIcOGFv6HTjIwJKs77voNPAeJ616hHT01MLxsA7gosFPNVusz7KN9XFd2G0V1SwPjpzuniC4gZ96k5tFA4/8ApYx4LuAYGB1LN0/IK3hwTU7V3l91Cp7TW07C59O7dHMt9rHuXVAyrAAHWtPW6elut6pIaJoa6qk6N2BwHWXe4H3IKgAEv0AWitwoQs2kRuBwKsrZxRupND0m+MOnc+byJ4egClK4qWnipKOGmhbuxwsEbR3AYC5V5ZUzbeZ8vMkrUxuVoCIi79JZ6yswWRFrD89/ALGGCWd2SJpJ7Ee9rBdxst3pcuNuky4kdJgAnlwC6mo9AWLUu9JUU3weqPKogw1+e/qd5rdWuh+LqIQF4eclxIGOa7i9jwlstJSxsJs4DVcnWNjqHuzC4KoGn2XXev1BVUVI7+I00pjNbMwsa7HPdbzd2cOHDmrS0xs6smm9yYRfDa0f8xOAcH6reTft71LEV7PiE0wyk2CqqfDYIHZgLnt4dyIuvWXCjt0JlraqGmjHzpXho9VDLvte01bS5lM+a4yDqgZhv7Rx6ZUWOCSXqNJUuWoih/yOAU0koaWaqjqpaaF9REMRyOYC5ngeYXK+RkUZkke1jRzc44AVHXfbRfKvebbaanoIzycR0r/eeHooRdL9dr1IX3G41FV9WR53R4N5BWkeEzP/AMht6qplxmBl9mL+iv8Au+0rS9nLmPuLamUfo6YdIfeOHqoPdtuFRJvMtFrZEOQkqXbx/ZHD1KqfqUq0JoqfV93w7eit8BBqJR1/Ub3n0CnjD6anaXya25quOJVVS8RxaX5LEuptZawqTTR1VbVF3OGlaWtHiG44eKkli2LXSsLZrzVx0DDxMcf5yQ+J5D1Vy0Nvo7ZSMpqKmipoWDAZG0Af6rsqtkxNwGWBoaFax4U0nNUOLio5YNB6e05uvo6FslQP08/tv8ieA8sKRoiq3yOkOZ5uVbMjZGMrBYIiIsFmiLCyiIiIiIiIiJjIx2qrqe01dfXyU0ERc5jiHHkG8esq0V8RwxwhwijawOJccDGSeZUunqTAHWG9QKujFUW5jYBaK06SpKDdlqcVM448R7DfAdfmtxV11NQQ79RIGDqb1nwC1d21FHRl0FNiWfkT81n4lRaSWorqoF7nTTSHA6ye4Lj8X6TNicY4fjf6D37gryhwprW3tlb6lbeu1FVVjuio2uhY44GOL3fh5Lu2rTobiorxvyHiIycgePau3ZrIy3RiWUB9SRxPUzuCi2uNffFzpLZaXg1fyZZxxEXcPrfYtmE4FUV8onrjmfvAO5veN3h8ytWI4pBQxHJo31PctzqfW1v02wwDFTW49mBhwG/rHq8Oa1+mLfctRyR33UL96PO/SUmMRt7HlvX3Z8exQDRtkOpNUMjqS6SBmZ5y45LgDyJ7zj1V6ABrQ1oAA4ADqXdVbI6Fohj1cd5+g5LlaCSXEnGom0YDo3meZ52+aEZyDyKq+rgNNWTQuHGN5b6q0VBtXUfQXYTgexUNz/aHA/cvOelFOX07Zh/U+h+9l3WEyZZCw8fotHE/o5Q7q61sAQRkLWLtU02PzbvIrzlwuugkbfULtIiLBaERERFD9S6Nhqq+S80UOatzcSsHz/rDv7e1RPdLSWkEEcCD1K3FrLlYaG5kukj3JT+kZwPn2roqDGDC0RT6gbjxCsKSrEIyOGirdMKUy6ImDiYayNzerfaQfTK5aPQVXUSgGcOHZFGXFXzcTpXdV1/A38rKzNbABcuUTZE+R4Yxpc9xwGgZJU603YviuEz1DQaqQYI+gOzx7VJrJs/FDh4Y2J5HGSQ7z/TgFJ6bTlDBgyB07h9M8PcsJ6WuxAbOJmRnEu0J8N6oK7GYSMjDcKKwU01Q/dhifIfqjK3FLpmeTDqmRsQ+i3ifwUmYxkbA1jWsaOQaMBfM9RDSxGSomjhjHN0jg0DzKmUnRanjsZyXnluHv6rnJcSeeroF1aS0UVHgshDnj57+JXeUTuW0vTFt3m/D/hUg+bTNL/Xl6qHXTbVO7LbXa2RjqkqH7x/ZGPtXaUmEva3LDHlHdZUFRikDDeSS581bq1d01NZbKD8YXOnp3D5hfl/7I4qgbtrvUl33hUXWZkZ/Rwno2/3cZ810LZp2832T+IW6pqSTxkDSG+bjw9VcMwjKM0z7D84lVL8bznLAwk9vsFa13202ql3mWyhnrXDk+Q9Ez7z6BQi67WNTXLebFUR2+I/Np24P7Ryfdhbe07F7tUbrrrWwUTOtkf51/wBwHvKm9p2V6XtTmulpnV8v0qp28M/qjA9FltMPpuqMx8/ssRHiVV1jlHl91RkVLeNRVn5qKsuVQ48XAOkPmepS6z7HdQXAh1wdBbYz9N2+/wDZbw95V609PBSwiKnhjhjbyZG0NA8gtZqq9N0/peuuRI34Yz0YPW88Gj3kLU7FZZCGQtAv4razB4YwZJ3E215LzjqW2Ull1DU26iqX1UdMejdK8Abzx8rAHUDw8lql9Pe+WR0kji57iXOceZJ5ld2y2atv92ht1BF0k8p8mjrcT1ALoh8DPjO7eVzJ/kf8A3nQLt6V0vW6svTKGkG4we1NMR7MTO09/YOtekbLZqOwWmG3UEQjgiHm49biesldTSumKPSllZQ0o3nn2ppiPalf2nu7B1LdLk66tNS6zeqPy67LD6EUrLu6x3+yLCyirVaIiIiIiIiIiIiIiIiIiIiIovfdQEl1JRPw3k+QdfcPxXZ1LdjTRfA4HYkkGXuHzW9nmoiuG6Q405hNJTmx/sfoPr5K6oKMOG1k8FlS7TdqEEArJm/nZB7APzW9vmo5a6UVl0ggcMtc7LvAcSrBwAMY4KL0Xw9sr3VUg6ug7+fgtuJTloETeO9RDX+qXWG2NpaR+K2qBDSOcbOt3j1D/RUySXOJJJJ5k9a32t66Su1lcHPdlsUnQsHYG8PtyfNaBe94dTNghHM6leKYtWOqql19zdB+dqsXZE+IV1zjOOldGxzf1QTn7QrRXnez3epsl0irqRwEsZ5Hk4dYPcVcNi19Zr1G1j520VUecUxwCe53I/aqbFqOTamZouD6LosCxCEQinebOF/G+qk61l/tvxlanxsGZY/bj8R1ea2TXBzQ5pBB5EcVlc1PC2eN0T9xFl1schjcHt3hVRxBweCyphddKOq699RSyRxMk4ua4H5XXjC6zNFT/PrIh4NJXmMmA1zXlrWXA46a+q6puIQFoJdZaGGpx7Mh8CuyDnkt4zRUX6Stef1WALuwaXt1I3L3yvH134Hos2dGq5+9oHefa6jyV9ONWn0UWX0yJ8hwxjnnsaMqTS1OmbdxmqaCMj6crSfUroVG0XS9EC1lb0uPmwROP3AK4p+hVTJ13eQJ9lWTY7TxbyB3kBdaGx18/KnLB2vOFsINKuODPUgdzBn1KjtZtht8ZIo7ZUzHqMjgwemVoa3a5epsilpaWlHUcF7h7zj0XS0nQSNur2k95t6BUs/SqFvVf5D3VpQWGggweh6U9shz6cl2Z6yht0Waiop6Vg+m8MHqqDrta6iuAInu1QGn5sR6Mf3cLRSyPmkL5XukeetxySutpejUdOLNs3uH/FQz9J8/VaT3n/qviv2kaZoAR8P+EuHzadhf68vVRi4bZWDLbbaSex9RJj+638VAbfpe+XbBo7XUysPJ5Zut95wFKrfsgvFRh1dV01E3rDcyO9MD1U79HQU/+R1z3/QKIK/Eqr/E2w7B9StRcdpmp6/IbWtpGHqp2Bvqcn1UZqKuuuc46eeermceG+4vcVdFt2S6fo8Oq3VFe8cw92433N/FSOCCwadj3aeGjosdUbQHH3cStMuL0dI28bQBz0A81uZg1bVH+d/hqfsqOtuz3U113TFbJIIz+kqD0Y9x4+imFs2KAlrrrdfGOmZ/3O/BTaq1hSxZFNC+Z3a72R+K0tVqe51OQx7YGnqjHH3lcpXdN4WXDHX/APiL+p08l0NL0UaNXi/efoFtLfojSmnmCUUNPvN49LVO6Q+W9w9wXaqdV26nbuU4dOW8AGDdb7yo5R2e4XiTpDvFh5zSk48u1Su2adorbh+7004/SPHLwHUqSPE8TxQ5om5G/wCztT4flu1XX6OkohlOp5DTzXXpp73dvbIZbaY9eN6QjuyttTUcVK32S+R55ySO3nHzXYWFcwUoi+J7i53M/Qbh4KLJLm0aLDs/NVlU9tsv+9UUVihf7MY+ET47TwaPdk+YVwOduMc7BOBnAHEqjZ9n2q9Y6gq7pWUzbcyplL81L+LW9QDRk8BgccK/w0Rtl2shsG/NUmKGR0WyiBJd8lAKKiqLlXQ0dHE6aomcGMY3mSvROhtFU2kLVundluE4BqJsf3W/VHrzXFovZ7b9IB1QJDV18g3XTubgNHY0dX2qXLZiFft/44+r81qw3Dv0/wDJL1vkiIsKoV0soiIiLCyiIiIiIiIiIiIiIixnAJPIcVlYI3mkHrGF8PYirutndV1ss7zkvcT5dS4Fy1ELoKmSJ4w5ji0riXhspcXuL99zfvXaMsGi25bLT0rYr5AXHAdlvmRwU65qtGuLXBzSQQcghTWz3uK4RNjkIZUtHFp+d3hdv0WxCNjXUjzYk3Hb2eip8TgcSJW+KrHaRp+e3X6S4xxk0lYd7fHJr+sHx5qGL0lU00FZTPp6mJk0Ugw5jxkEKBXjZRSTvdJaqt1KTx6KUb7PI8x6r2OhxVgYI5tLcV5fiWBSOkM1PqDrb2VVLGVK6vZvqSlJ3KWOpaOuKUH0OCtXLpPUERO/Z6zyiJ+xXLaqF/VePNc4+iqI9HRkeBXSpbrcKH/0tdUU/dHIWhbOPW+pIhht3nOPpYd9oXT/AIO3rP8Awiu/cO/BfbNLX6T5NmrT/wDS4LF/6d2r8p8lnH+rZozMO667v5QNT4/4q/8Ads/BcT9damk53icfqho+wL6h0Hqac+zaZW/rua37StjBss1FLjpBSwD68ufsBUcuoWb8vopjWYnJuz+q0M2qL7P/ACl3rT/9zh9i181XUVBzNUSyk/TeXfarDptj9S4g1V2iYOsRRF32kLcUuyWyxYNRVVdQewODB6D71qOI0cfV9At7cIxCbrjzP/VTy+o4pJ37kUb5HHqY0k+ivim0Rpe3AO+LackfOncX/wCI4XeFysluZuRS00QHzYWj/tCgVHSOnh36d5AVhB0Xnk6zvIE+ypGi0RqO4YMNpna0/OlAjH97CkdBshusuDW11NTN6wwGR33D1VgT6woY/wCSimlPbjdHqtbPrKqfkQU0UY7XEuP3Lm6rptAzRrx4An13K/p+iDd7wT3m33XWoNktjpsOqpqmsd2F2433Dj6qR01j0/Y2h0NFRUpHz3NG97zxUSqL7c6nO/VvaD1M9kei6JL5HZcS5x6ycrlavps+TRjSe829AujpujkMOtgO4XPmVOqjVVsgBDJHTkdUbeHvK1VRrKZ2RTUzI/rPO8fco2Ij4L7EY6+K5mo6R1s2jXBo7B9TdXDMOp2bxfvXaqbzcawkSVUm6fmt9kei6YYSeK71FbKqudinhJb1uPBo81JKDS1PBh9W7p3/AERwaPxUemw+uxN2fUj/AGcdPv4LOSpgphYeQUZorVVXCTdgiLh1vPBo81KLdpelpd2SpPwiUdRHsjy61u2MbGwMY0NaOAAGAF9LtsP6PU1LZ8nxu7d3gPdUs+ISy6N0CwAAAAAAOQCyiLpFWoiIiIiIiIiIiIsLKIiIiIiIiIiIiIiIiIiIiIiIiIi0V/shrP41TD8+B7Tfpj8VEnNcxxa5pa4cCCMEKyl0661UlwH5+Ib/AFPbwcPNcli/R1tW8z05s47xwPsVaUteYhkk1Cr9AS1wIJBHIhSKp0lK0k01Q14+i8YPvWtmsVyhPtUr3DtZh32LiZ8Jrac/HGfDX5K5ZVQybnBdqi1NWUwDZgKhg+lwd71uYNUUEo/OdJCT9JuR7wok6jqWfKp5W+LCvjopP5t/7JU2mxvEaUZSbjk4X9d/qtMlHTy67u5T6O6UEvyKuE+LgPtXO2ohd8maM+Dgq6FPK7lE8+DSuVlurJD7FJMf7BV1F0oqXb4L91/YqI7DYx/eysLpGfTb718meIc5WDxcFCI7Bc5OVK5v6xAXbh0lWP4yywx+9xVjHjNfL1KQ+Jt8wFHdSQN3yj88VKH3CjZ8qrhH9sLgffLaznVsPhkrXQaSpWcZp5JD2Nw0LaU9poaXBipmBw+c4bx95VjFJicvWYxg7SSfTT1UdzaZu4k+iwKhtxgc2knliPVII+HqMFRm6UuoIHOL6iaeEfOicceYHJTNFsq8N/WMtJIQ7m24HlchfIanYuu1oI7fdVY573uJkc5x+scoGk8gVZNTbaKr4z00bz9LGD710JNL295y3pY+4Oz9q4+fovVtN43B3ofzxVwzFYiPiBCg/Ru8F9CHtKl50lTZ4VMoHgF9s0nRtPtTTO8wPuUMdG8QJtlHmFsOJw8/RQ8RtHUvuON0rw2NjnuPU0ZKm8On7bEc/B98/XcSu/FDFA3dijZGOxowp8HROZ2s0gHdr7KO/FWf1aSodSaar6jBewQM7X8/ct7R6aoqbDpQah4+n8n3LcIulpMAoqXXLmPM6+m5V0tdNJpew7FhrQ1oa0BoHIAYwiyivgLKCiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiLU6ovHxBpevuYAL4IiWA8i48G+pCos7UNXZ/4uf3Mf+VT6ahkqWlzCLDmq6rxCKkcGvBJPJeikXnX8p+rv63d+5j/yp+U/V39bn9zH/lUr9nn5j19lD/fKf/U+nuvRSLzr+U/Vx/8Adz+5j/yq4NnNyut40fFX3efp5ppXljtwN9gHA5DtBUapw+SmZneR+eClUuJRVT8jAb/napUiIq9WaIiIiIiIiwsoiIsLKIiIiIiIi1d7u3xXTt6NofNJ8kHkB2qOxaluMcvSPlEjethaACqKtx2loptjJcnjbh3qbDRSzMzt3KbItbcLwyjtcdU1u86YDo2nvGeKjY1Jcul3+maRn5G4MJW47S0TxG+5J104ApDRSzAuCmyLgoqkVtDFUNG6JG5x2LnV0x7ZGh7dx1UMgtNiiKnL/tfvFBqGupKKmonU1PM6JjntcXENOMkh3aFr/wAtOov6Lb/3bv8AMrZuF1DgCAPNVDsXpmktJOnYrzRUX+WrUX9Ft/7t3+ZPy06i6qW3/u3f5ll+01HIeax/eaXmfJXoirW7a5u0OyenvjjDTXKtl6OIxtyAN48QHZ6mn3qvfyoavxj43Of/AIY/8qxiwyaUEgjQ28lnNisMJAIJuAfPxXoxFG7JeKyLQVvuN1f01bNC15O6G7xdxHAd2FrTqS5GXfEzQPoBgwuUxLGKbDZdjLcu7PwK+paWSqZtGaDtU2RdW21or7fFUbu6Xcx2EcCu0rSKRsrBIw3BFwtDmlpLTvCIiLYsURFENpmoKrTuj3VFDP0FXNMyKN4AJHMnn3ArZFGZXhjd5WqWQRMMjtwUvRebjtK1cW4+Opc//Gz/ACq+tKS11RpG2T3KUy1c0DZJHkAEk8eQ7iFLqqF9M0OeRqodJiEdW4tYCLc1t0RFAViiL5kkZFG6SR7WMaMlzjgDzUcue0PS1qyJrtDK8fMgzKf7uQs2RvkNmC61vlZGLvIHepKi1tgvtLqOzx3OibK2nkc5relbuk4OM48lsl8c0tJad6ya4OAc3cUREWKyVc7arl8F0jT0QOHVlQMj6rRk+u6qK3lY23C59NqmioGuy2lp98jsc8/g0Kst/JxnGV2GGs2dO3t1XF4o7aVLuzRWPYNktzv1ipboy401OypbvtY9jiQMkDOPDK2P5Drr/XFH+7cpxatc6Otlmo6Fl+pA2mhZEME9QA7F2/yj6Q/r+k95/BVT62szHKDbuVsygocozEX71Xn5Drp/XFJ+7crbsdsZZbFRW2N28KWJse9jG8QOJ8zkr5tF/td/hkltVbFWRxO3HujPyTjOFUW13WF1oNYMoLbcqmkjp4G77YZC3L3ZPHHdurRmqK54hkNra7lIyU1AwzRi99N6u5F5gtGvr7R3ilqqy8XGpghkD3w/CHYkA47pz1HkVxai17qDUlQ91VXyRQE+zTwOLI2jswOficrb+0yZrZhbmtf7vHlvlN+S9Rgg8jnwWV5Do7vcbfOJqOvqaaUHIdHKWlWhRbb6iDR25UU4qL4x3RteRiNzcfyjsdfVgc+5YTYXIy2Q3WcOKxPvnGVXYsAgjIOV5QvGrb7fqh0twudRNk8GB5axvg0cAuC2aiu1mqWz2+41FO9pz7MhwfEcj5rb+0Oy9bVaf3hmbqGy9boots91a7WOmG1kzGx1cLzDUNby3gAd4dxBB966+udotv0bEIA0VdykbvMpw7AaOpzz1Du5lVYp5DJsgNVbGojEe1J0UxWMjOMjPYvL972hakv8rnVNzliiPKGnJjYPIcT55WgbW1LZOlFRMH894POferRuEPI+J1iql+MsB+FlwvYCLzhpXatfrBVxsrKiS5UGcPimdvPA7WuPEHuPBehLXc6W82unuNDL0tNUMD2O7uw945KBU0klMfi1HNWNLWR1I+HQjgujqC1S3COOWAgyxZG6TjIK01HpmsmmaahohiB9okgk+GFUut9cXt+tro2hvFZT00UxhjjimLWgN9nkO8Era7KL3qC966hhqrxW1FLDC+WSOSYua4YwAQe9w9yqqzohT1D/ANbKdbXI4H871sg6QOa79MxvG11cF7tLq6hiZTkNdB8lpOARjGFoabTdwmlAkjELM8XOIPuAVcbT9a3iDXdXR2+6VVNT0rWRbkMhYC7dBceHXk+i6ez/AFBqO868tdJJe6+SIy78jHzuLXMaC4gjvxhKvohT1hFZKbaXIHGw7uXJI+kDoX/p2tvra69CU8LKenjhjGGxtDQuK41jbfa6qsecNp4nSnyBK7Kh+1O4/F2zq4kHDqgNgb37xGfTKmQRAubG0aaBbJ5MjHSHgCV53kmdNK+R5y57i4nvPFb/AEzoq76tjqJLa2HcpyGvdK/d4nPLh3KL7/FXxsfloLbobpKitpopaqd8ha+VrXADDRwJ+r6rsK2odBFmZvXFUNM2omyyblDPyN6p/wD0f35/BZ/I5qrkDQjv6Y/gru+ObV/WdH+/b+K56espqtrnU1RFOGnBMbw7B8lRnFakbwPJX4wilO4nzVL7Wt2z2XTenWOBNLAXvxyJADQffvKtaSB9ZWwU0fF80jY2+JOPvUr2uXH4btFq2B2W0jGQDyG8fVxXS2aUBum0S1x4yyGQ1DvBgJHrhXNO7Y0oeeV/PVUlSzbVZY3dcDy0XoW42n4RZY6OHDTAGiPPLgMY9yjsenLjJKGuiETc8XOcMD3KC7W9ZXWj1n8XW25VNJFTQMD2wyFmXuy7Jx3ELRaI1FqS7a2tNE++18kck7S9rp3EFrfacCM9gK4is6Jw4gRVzOsba24jt0XWR48aZ5pmNvrZeh6KlZRUcdPGSWsHM9Z6yudRXXOuqHRdva6RvwiunB6CnBxn6zj1N+1ULfdd6h1FO51ZcZWxk8IIXGONo7MDn55VpRYa6RgDPhaNB9lorMRZA6x1cvUYIPIg+CyvItLda6gnE9LW1FPKDkOjkLSt3dtoWo7wKXp7jNC6ni6MmCQx9Ick7zgOGeQ8lOdhDwQA7RQm4ywgktN16fVQbdLhh1otzT9Odw9zR/3KMbM7jeLvtBt8E12rpYWF8sjHTuc0hrTwIJ5ZwuLbBcvhm0Ooha7LaOKOEeON4+rllS0hgqw0m9hf6LCqrP1FGXAWubfVRShgdW3GmpGcX1ErYh4uIH3r1lFGymp2Rtw2ONoaO4AYXkuzXU2e9UtybE2Z9K/pWMefZLgPZz3A4Pkue9aqvWoah0tzuE0+TwZvbrG9waOAU6tpX1Tmi9gFAoKplIxxtcler2PZIMsc1w7Qcr6XkK33e4WmoE9vrZ6WVpyHRvI9/avQGh9XVut9DVzMsjvMEboXOHstc4tO4/uz9oKp6nD3QDMDcK7pcRbUHLax+a+Nstx+B6HFMDg1lQyPHaBlx+wKgi/d8F2rzSXW11zqC7sqI54uO5M4nzHaD2ha7fwugo4RTxZQb8brm66Y1Muci3Cy9VaPt/xZo21UmN1zKdhcPrEbx9SVul5AbWVcsjY2VM284hrQJDzPJetrbTGitVJSlxcYIWRkk5Jw0DK52updgcxdcuuuloKoTtyhtg2y7KIulea9tqsVdcHnApoHy8e5pKrwLmwVkTYXK8zbQLp8a6+u9SHbzBOYmHuZ7I+xRsvxzWHyOlkdI85e8lzj2k81Zuw+yU9z1FcKurp454aWAMDZGBzd557D3NPvXZPeKaG/ABcWyM1M1v8AYqsukHaE6QdoXrv4hs/9U0P/AE7PwT4hs/8AVND/ANOz8FWfu7f9PVWn7Of9vRRLY1bPgGzyGdw9utlfPnuzuj0b6qjta3P421vd6wO3mPqXNYfqtO6PQBem75WRWHS9fWsa2KOjpnva1owBhpwAPHC8iue57i5xySckr7hxMkkkx4r5iQEUUcI4KQaN0tVax1FHbad3RRgdJNMRkRsHM9544AVwXTYxpqDTlT8F+EsrIoXPZO+XOXAZ4jljyWv2BWzo7Rdbo5vGeZsDD3NGT6uHuU52g3L4p2f3ipDt15pzEz9Z/sj7VpqqqU1AjjNrEBbqSkiFOZJBe4K8rh2QpXoDRU+tr2+nEpp6OnAfUTAZIB5NHeePuKiPgvQmwy2/BNDzVrm4dW1LnA9rW+yPUOVnWzmGEubvVZRQNnmDXblrtabJNP23RtbX234RBVUURlDnylwkA5gg8OXZhUfvL0ltiuXxfs3q42nD6yRlOPAnJ9Glea1pw18j4i55vqt2JRxslDWC2it/ZZdxpjZxqK+zjejjma2JhPy3hoAHmXBVZcLjVXS4z11bKZqioeXyPPWT9ynOpIX2bYnpmiGWm41D6yQdvD2fRzfcq6J4LdTNBc+XiT6DRaapxDWRcAPU6qytm2zH+FcJut0lkhtgcWxsj4PmI58epo5d6lOutkllpNL1dwsrJaapo4zKWmQvbI0cXA55HHYrE0pRRW7SFppIAOjjpY+XWS0EnzJJWr2l3eKz7PbpI94D6iI00Q63Ofw+zJ8lTGsmkqBlOl9yuhRQx05zDW29eX896vDY1e/guzy8umcTFbZHzNz1As3iPeD71ReVaNn6Sxf7Pt1rHDcku9T0Ufe3IafRr1cVzQ+MMPEhU9A4skLxwBVay1D6iZ80hy+Rxe49pJyVcWwShDY7zdXjAG5A1x6sZc7/ALVS+Ve2lv8Adf8A2fqy4fJmqYZZgfrPO4z/ALVjiB/iyD+xAX3D2/zbQ/1BKpy+3E3XUFwr3HJqah8g8C449FYOwm3/AAnVddXubltJTbgPY55/BpVVq/8AYTbvg+jauucMOrKkgH6rAAPUuSvds6YgdyUDNpUhx71Z6qPb1c+itlptrXcZZXzuHc0YH+Iq3F5222XL4ZtANMHZbRU7IsfWOXH/ABBUuGszVAPLVXeJPy05HPRQDeXyTnqXf09bjeNSW63YyKmoZGfAuGfTK9I/kz0aP/YKb3u/FX1TWspiA4XuqCloX1IJabWXl/h2K/8AYhQNo9D1FfIN01dQ52fqsG6PXeUh/Jno7+oKb3u/FfeqDSaT2a3IUELKWCmpXshYzgGl3AerlVVNc2qaImAi5CtaWhdSvMryDYFear3cnXW/19e45+E1D5fIuJHorK2C2/pr5dLiW8IIWwtPe85Po31VR54K9dl4Gndj10vbxuukM04PaGN3W+oPvVjXHLBkbxsFXUDc9RndwuVU+sbl8a61u9aHbzZKl4afqg7o9AFKtjMETdVVt3qSG09ro3yucfm54fZvKuC4uOXHJPElWNp2F9s2H6muYG6+vmjpWn6oIB/xOC2VAyw7McbBa6c5p9oeFyolqbUNTqbUNVdKlxzM72GE8I2D5LR4D71KdmOz9usaqatr3PjtlK4NcGHBmfz3QeoAcz3hV7lel9kEcDNmVuMOC57pHSY+lvkHPkAtVdKaeC0enBbaGEVE95NeK7Nbs00fNbXwPs8MDGtP52Ilr28Oe9n7crzPMWCZ4jJMYcd0nmRngvTu0bUEOntD18r5A2eojNPA3PFz3DHDwGT5Ly3nAWnCzI5rnPJIW7FWxtc1rAAVbmwa39Lebrc3D2aeFsIJ7XHJ9G+qrjUdyN11Rc6/ORUVMjx4bxx6YVs7Pf8Ad3YjeLyRuyTiaRh8BuN/vD1VIDkt9P8AHPJJ3DyWioGSnjj7z5qWaB0XPrW+up+kMFFTtD6iYDJAPJo7z9xVsX3Y7ppum6n4BFPBVwxOfHMZi7LgM+0DwwcdWF87C7d8G0TUVrhh1ZUuwe1rQGj13lKtfXH4p0DeKoHDhTujb+s72R6lVtTVSuqMjDYA2VlS0kTabO9tyRdeVQchXHsBjkNRe5ePRbsTPPLiqayvQexakba9nU9ylG6KiaSYn6jBu/8AaVY4k60BHOyrsNZeoB5XVX7U7n8Y7RrmQ7LKdzadv9kAH1yvrZZZoL7r6lgq4GVFNDG+aSN7d5rgBgZHiQolX1j7hcqmskOX1ErpXeLiT96tvYDbt6ovFzcPktZTsPiS532NWU52FKQOAt9FjA3b1YJ4m/1Vox6N01DKyWOw25kjHBzXCnbkEcjyW6RFyrnOdvN11bWtb1RZFBdsVz+L9nNVG04fWyMpx4E5Po0qdKvdq+kb5q+mttPaRAYoHvfKJZNz2iAG9Xit9Ll2zS82C0VWbYuDBcrzopTpPX920bSVFPbIqQioeHvdNGXEkDAHAjh+K3H5FNYfzVF/1H+ifkT1h/NUX/Uf6Lpn1FNIMrnAhcyynqYzmY0grn/Llqr+at37l3+ZY/Llqoford+5d/mXD+RPV/8AN0X/AFH+iyNiWryQCyhAPX8I5eij2oexb71//spbq3VFwuGwmCtufRR1d3kbGGxAtBZvlw4En5rPVUer+2h7P71fLFYbTZW05prbGWv6STcy4Na0EcO4+9QRmxHVznta9tE1pIBd0+cDt5LCjngjjPxAXJNlnWQTySCzSbABW7sttnxXs3tUZbh87DUO8XkkemFG9vFy+D6Tore04dV1O8R2tYM/aWqzKSmZR0UFNGMMhjbG0dwGB9irTaroXUOsLxQyWxtO6lpoS385LunfLuPDHYGqqp3tdU7R5sLkq2qGObTbNgubAKgSeGV600ZbBZ9E2mhxh0dMwvH1iN53qSqWt2xPU/xnTGsbRNphK0ykT5O5njgY7F6DAAGAMAKXidQyQNaw3UTDKd8Zc54sqY2/XP2rPa2nlv1Lx/db/wBypyCB9VUxU8Yy+Z4Y0d5OArr2k7OdTar1g+4UTaV1I2FkUe/NukY4nhjtJWq0nse1Db9W22tuTaRtJTTCZ+5NvE7vEDGO3Cl01RDDTgZheyiVNPNNUE5Ta63+2TTj27PbY+lZvMtDmscAOUZaG594aqG5L2VU08NZSy01RG2WGVpY9jhkOaeBBVJao2GVsVVJUacnZPTuORTTu3Xs7g7kR4481Hw+tY1uzkNlIxCie920jF1r9LbaLhYLFDbay3suAp27kMvSljg0cgeBzjkorrHW111nXMnrnNjghz0VPHncZnme8967R2Xa06XcNhn8ekZj37ykFj2HagrZmm7TQW2n6wHCWQ+AHAeZU29HE4ygi6hWrJWiIg2UJ0tput1Zf4LZRMPtnMsuPZiZ1uP/AJxKs3bY6Cz6e0/pyjG5BFl4Z9VjQ1ufeVaOmdK2nSVsFJa6fc3uMkruMkp7XH7uQVCbXr7Fe9ezNppBJBRRima4HILgSXY8zjyUaKc1dSCB8LVJlgFJTEE/E5QdkbpZGxsGXvIa0dpPJXrtac2wbK7XY2HBe6KHA62xtyfUBVbs9tTrzr+00wbvMbOJpO5rPaP2Y81b+1bRN+1jV234sFOaelY/eEku4d9xHd2ALbVSNFRG1xsBr7LVSRuNPI5ouTp7rz2eHFerdAW34p0BZ6Ujdd8HbI/9Z/tH/EqZptiOqnVcQqG0TYC8dIRPkhuePDHYvQ0bGxxtjYMNaA0DsAUTE6hkjWtYbqXhlO+NznPFl9LyVq24/G2sLrXZy2apeW/qg4HoAvVteyokttSylLRUuieIi44G9g4z5rz3+RTWB4mOiz1/xj/RYYZJHGXOebLPE45JA1rBdcexm3fD9o1PMW5ZRQyTnxxuj1cvSCrfZToG5aQluNTdRAJ6hrI4xE/fw0ZJzw7ce5WQo2ISiWa7TcBSMPhMUNnCxKKs9uly+C6Kp6EHDq2paCO1rQXH13VZirPatoi/6wrrcbWKc09LG/eEku6d9xHd2ALXRlomaXmwC21mYwuDBclefTwGVeusv92tgdBbPkS1EcMJHefzj/sKilv2J6n+MqY1jaJtMJWmUifJ3c8eGOxWBtX0de9X01sprQ2n6Gmc98gkk3OJADccOzKuKmoikljAcLA3Kp6anljikJabkWC86ZV/x6Wlm/2emW2GIuqX0orGtHNzt7pMeOOCgsexHVj5WNkbRMYSA53T5wOs8l6DYILdQRsc9kUMDGsBcQAAMAcStVfVtOTZm9jfyWygpHDPtRa4t5rxtnrUk0zru/aRhlhtdWGwynedDIwPZvdoB5HwVu6t2K2693CW4Wmq+LaiY70kRZvROceZA5t+zuUapNgNzfUD4ZeaSKIHiYY3PcR4HAUr9dTSs+M+BUb9DUxP+AeIVdX/AFNdtUVoqrtWPqJGjDG4AawdgaOAWqJ4ZUz2j2+yWG509hso3zRMJqp3HefJK7HAnuAHAcBkrQaZtTr3qm221rc/CJ2td3Nzlx9wKmRvbss4Fh9FCkY7a5Cbn6q3Nef7ubCrVaQd2SobDE4eXSO9QqPXofato2+6ubbIbS2nMFLvueJJNw7xwB1dgKr+n2JaqdVRCdtE2LfG+RPnDc8ersVfRVETIrvcLkkqxraeV8tmNNgAFc2gbcbToGz0hbuuFM17h9Z3tH1cont0uPwbRVNRA4dWVLcjta0Fx9d1WWxjYo2sYMNYA0DsAVa7V9EX/WFdbjaxTup6WN+8JJdw77iO7sAVRTPaagPebC91b1LHCnLGC5tZefCV6ZNuks+xCSihBE0dpcTjnvFhLvUlVfRbE9UfGFP8KZRNp+kb0hE+SG548Mdi9BvhjkhdC9gdE5u4WkcCMYwp+I1LHFgYb2N1Aw6mewPLxa4svGanuzvaT/AimrKWegNZT1DxKNx+45rsY6xxGMLaaq2KXiir5ZtPtbXULiXMiLw2WMfR48CO/KjsGyvWdRKGCySR5+dJIxoHqrF01NUR2c4W77KubDU08l2tN+66u3Z9rubXPxjMbc2ip6VzGR/nN9ziQSc8B2D3qZqHbM9H1OjdMyUldJE+rqJjM/oiSGjAAGTz5eqmK5moybQ7Pcump8+zG03oiLC0LesoiIiIiIiIsLKIiIiIiL4lmihbmWVkY+s4BdCbUFth/wCY3z2MBKjTVUEH+V4b3kLYyJ7+qCVskUel1dTt/kqaR/e4hv4rqSatqnfycETPHJVTL0hw+P8AvfuBUptBO7+tlLEUJfqO5v5TNYPqsC677vcH/KrJfJ2PsUB/SylHUY4+Q+q3jDJTvIU+Wm1be26d0lcboSA+CI9HnreeDR7yFE3VVRJ8uold4vK7N3ttt1jpKOx1lfLQOjeJN9uPacM4zngRx5cFKwvpHT1dQI5RkHMnf2bloq6CWKIuj1Ko6bXuqp6F9JJfq10L+Dh0nEjrG9zx5qOk8MlXANhDXzexqaF0PaKfLv8AEpPYNmWnNMTtqjT1V6rY+LHSR+w09objHmcr0STF6GBhe1w8FxrMMq5nAPHmV0dkWkf4NWuTUN4HwaprWhkLJBgxxnjk97uHDsAVjG/WwcfhbPIH8FoK+nvN1mDpaR7WN+QzgA339a67dO3M/wDLhvi8LzSv6QYhPO51PAS3ta77LtKXDqeCIMe/XvCkh1DbB/zP9w/gsfwitn9IP7B/BaAaYuJ5tib4vXINKVx5yQj+0fwUQYnjTt0A8j7qR+mox/f1Hst3/CO1/wBIP7B/BZGobYf+Z/uH8FpRpKr66iH1/BfQ0lUddVF7itgr8cP/AIB+f/ZYmGi/3P54LdC/Ww/823zB/BcjbzbncqyLzOFov4Iz/wBKj/ZKfwRm/pUf7JW0V2Ncacef/wCliYaPhIfzwUjZXUj/AJFVC7weFzBzXfJcD4FRY6SqP6TF+yVgaVrWcWVMQPcSFvbiWJDr0vk4fdYGnpzul9FK0UZjtF9g/k60EdnSH7wuyx2ooPlRw1AHaRn7lLZisn/lp3jwv8vZanUzf6vB8bLeql9uWqwXQaappOAxPVYP7DD/AIvcrWhuNXkCqtk0f1o8PCiustmVo1pI+vikfQXJwAMwYcPwMDface8YPir7Da2ndKHOvpzBB8jYqrr6eYxFrOPaqjsO1nU9gp46ZlRHW0zBhsdU0uLR2BwIPqu/dttuprjSugp2Utu3hgyQNJf5FxOPcsVuxHVlNIRTijrGdTmTbno4BcdLsU1hUSBssNJTN63SVAOPJuV0pNE45zZc8BWtGQXt+cVAZJHSSOkkcXPcS5znHJJPMkq7ti2h5aFjtS3GIskmZuUjHDiGHm/z5Duz2rZaS2LWuyzx1l4nF0qWHLY93dhafDm7z4dyssDAwBgBQa2va9uzi3cSp1Fh7o3bSXfwCyiIqVXaIiIiIiIiIiIiIiIiIiIiIiIiIi+JZWQsL5HbrQvhIaLncvoF9AvtcNRVQUjN+eVsY+sea1lTWXWrJZQUjoGfzsuAT4A8l0m6WqKiTpKyty488AuPvKpZ8Rnd8NHCXnmdG+tr/mqlsp2DWV9uzeVzVWrIWEtpYXSn6T/ZH4rTVN/uNTkGfomnqjG7681IIdMW+PG/0kp+s7A9F34bZRQfydLEO/dyfVVMmH4xWf5pgwchf6e6lNnpIuoy57VAhHUVL8hskzj14Liu1FZLlL8mkkH63s/ap4AAMAADuWVhH0Si3yyk9wA919dijv6tAUOj0tXv+WYo/F2fsXaj0i79JVgfqs/1UnRWMfRqgZvaT3k/Sy0OxCc7jbwWij0pRt+XNM/wIH3Lss05bWc4XP8A1nlbRFPZhFDH1Ym+Iv8ANaHVUzt7iumy0W+P5NHF5tz9q52U8MfyIY2+DQFyoprKeGPqMA7gFpMjnbyseHBZRFvWCIiIiLCyiIsLKIiLCyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiLCyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIsIiyiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIsLKIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi//Z';
+let draftLogoData='';let makeNewAirline=false;let exteriorCam=false;let liveryLogoTexture=null,liveryBannerTexture=null,liveryBuffer=null;
+const activeCustom=()=>customAirlines.find(a=>a.name===airline);
+const safeHTML=x=>String(x).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const saveCustomAirlines=()=>{try{window.flightAccount.storage.setItem(customAirlinesKey,JSON.stringify(customAirlines));return true}catch(e){notify('Your browser has no room for this image. Try a smaller image.');return false}};
+const airlineOptions=()=>airlines.concat(customAirlines.map(a=>a.name));
+function drawLiveryTexture(){
+ const own=activeCustom();if(!own)return;
+ function makeTexture(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');draw(g,w,h);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,c);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);return t}
+ if(liveryLogoTexture)gl.deleteTexture(liveryLogoTexture);
+ if(liveryBannerTexture)gl.deleteTexture(liveryBannerTexture);
+ const badge=new Image();
+ badge.onload=()=>{if(activeCustom()!==own)return;build(badge)};
+ badge.onerror=()=>build(null);
+ const build=image=>{
+  liveryLogoTexture=makeTexture(256,256,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle=own.primary;g.fillRect(0,0,w,h);g.strokeStyle=own.secondary;g.lineWidth=16;g.strokeRect(8,8,w-16,h-16);if(image){const scale=Math.min(205/image.width,205/image.height);g.drawImage(image,(w-image.width*scale)/2,(h-image.height*scale)/2,image.width*scale,image.height*scale)}else{g.font='bold 120px system-ui';g.fillStyle=own.secondary;g.textAlign='center';g.textBaseline='middle';g.fillText('✈',w/2,h/2)}});
+  liveryBannerTexture=makeTexture(768,168,(g,w,h)=>{g.fillStyle=own.primary;g.fillRect(0,0,w,h);g.fillStyle=own.secondary;g.fillRect(0,h-18,w,18);if(image){const k=Math.min(130/image.width,130/image.height);g.drawImage(image,16+(132-image.width*k)/2,(h-132)/2,image.width*k,image.height*k)}g.fillStyle='#fff';g.textAlign='center';g.textBaseline='middle';let size=70;do{g.font='bold '+size+'px Arial, sans-serif';size-=3}while(g.measureText(own.name).width>580&&size>20);g.fillText(own.name,465,75,578)});
+ };
+ if(own.logo){badge.src=own.logo}else build(null);
+}
+const liveryVert=`attribute vec3 aPos;attribute vec2 aUV;uniform mat4 uVP;uniform mat4 uModel;varying vec2 vUV;void main(){vUV=aUV;gl_Position=uVP*uModel*vec4(aPos,1.0);}`;
+const liveryFrag=`precision mediump float;varying vec2 vUV;uniform sampler2D uTex;void main(){gl_FragColor=texture2D(uTex,vUV);}`;
+const liveryProgram=gl.createProgram();gl.attachShader(liveryProgram,shader(gl.VERTEX_SHADER,liveryVert));gl.attachShader(liveryProgram,shader(gl.FRAGMENT_SHADER,liveryFrag));gl.linkProgram(liveryProgram);
+const liveryPosLoc=gl.getAttribLocation(liveryProgram,'aPos'),liveryUVLoc=gl.getAttribLocation(liveryProgram,'aUV'),liveryVPLoc=gl.getUniformLocation(liveryProgram,'uVP'),liveryModelLoc=gl.getUniformLocation(liveryProgram,'uModel'),liveryTexLoc=gl.getUniformLocation(liveryProgram,'uTex');
+function drawLiveryPanels(){
+ if(scene!=='flight'||!activeCustom()||!liveryLogoTexture||!liveryBannerTexture)return;
+ const len=({A320:10.6,B737:10.4,A321:12.4,A330:15.7,A350:16.5,B777:17.2,B747:19.2,A380:20.7})[plane]||11;
+ const wide=['A330','A350','B777','B747','A380'].includes(plane),four=plane==='B747'||plane==='A380',rad=wide?(four?1.24:1.12):.84;
+ const center=rad*.97,base=center+rad*.70,top=base+(four?3.45:wide?2.9:2.2);
+ const tx=-len*.40;
+ const model=flightModel();
+ // Surface-mounted rectangles on both sides of the vertical tail and fuselage.
+ const draw=(tex,quads)=>{
+   const a=[];for(const v of quads){const [x0,y0,z0,x1,y1,z1]=v;const vs=[[x0,y0,z0,0,0],[x1,y0,z0,1,0],[x1,y1,z1,1,1],[x0,y1,z1,0,1]];for(const i of [0,1,2,0,2,3])a.push(...vs[i]);}
+   const buff=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buff);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(a),gl.STREAM_DRAW);
+   gl.useProgram(liveryProgram);gl.uniformMatrix4fv(liveryVPLoc,false,VP);gl.uniformMatrix4fv(liveryModelLoc,false,model);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(liveryTexLoc,0);
+   gl.enableVertexAttribArray(liveryPosLoc);gl.vertexAttribPointer(liveryPosLoc,3,gl.FLOAT,false,20,0);gl.enableVertexAttribArray(liveryUVLoc);gl.vertexAttribPointer(liveryUVLoc,2,gl.FLOAT,false,20,12);
+   gl.disable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.drawArrays(gl.TRIANGLES,0,a.length/5);gl.disable(gl.BLEND);gl.deleteBuffer(buff);
+   gl.disableVertexAttribArray(liveryUVLoc);gl.useProgram(program);
+ };
+ const tailX=tx+len*.008,tailY=base+.45,tailTop=Math.min(top-.26,tailY+1.35);
+ draw(liveryLogoTexture,[-1,1].map(side=>[tailX-.65,tailY,side*.11,tailX+.65,tailTop,side*.11]));
+ // Banner slightly proud of the fuselage under the row of windows.
+ draw(liveryBannerTexture,[-1,1].map(side=>[-len*.13,center-rad*.72,side*(rad*.975),len*.19,center-rad*.13,side*(rad*.975)]));
+}
+function showAirlineCreator(){
+ const current=makeNewAirline?null:activeCustom();draftLogoData=current?.logo||'';
+ modal(`<h2>🎨 Make your own airline</h2><p>Name your airline, pick its colours, and upload an image for your aircraft logo. Your designs are saved to your account database.</p>
+ <label>Airline name</label><input class="designerInput" id="airlineName" maxlength="28" placeholder="e.g. Sky Emoji Airways" value="${safeHTML(current?.name||'')}">
+ <div class="designerGrid"><div><label>Main plane colour</label><input type="color" id="airlinePrimary" value="${current?.primary||'#1b74b2'}"></div><div><label>Second colour</label><input type="color" id="airlineSecondary" value="${current?.secondary||'#ffd45a'}"></div></div>
+ <h3 style="margin:15px 0 6px">🖼️ Make your aircraft logo</h3>
+ <div class="row"><button type="button" id="useEmojiLogo" class="gold">😀 USE EMOJI FLIGHT LOGO</button><button type="button" id="designLogo">🎨 DESIGN MY OWN LOGO</button></div>
+ <div id="logoDesigner" style="display:none;background:#e5f0fc;border-radius:12px;padding:12px;margin-top:9px">
+ <label>Words on logo</label><input class="designerInput" id="logoWords" maxlength="18" placeholder="SKY AIR" value="SKY AIR">
+ <div class="designerGrid"><div><label>Logo symbol</label><select class="designerInput" id="logoSymbol"><option value="✈">✈ Airplane</option><option value="☁">☁ Cloud</option><option value="★">★ Star</option><option value="🌎">🌎 World</option><option value="😀">😀 Smiley</option><option value="🛫">🛫 Taking off</option></select></div><div><label>Logo background</label><input type="color" id="logoBackground" value="#0b77ba"></div></div>
+ <label>Symbol and text colour</label><input type="color" id="logoForeground" value="#ffffff">
+ <canvas id="logoDesignCanvas" width="300" height="300" style="display:block;width:185px;height:185px;margin:12px auto;background:white;border-radius:15px;border:1px solid #b5cbdc"></canvas>
+ <button type="button" class="primary" id="applyDesignedLogo" style="width:100%">✅ USE THIS LOGO ON MY AIRLINE</button></div>
+ <label>Or upload your logo (PNG, JPEG or WebP)</label><input class="designerInput" id="airlineUpload" type="file" accept="image/png,image/jpeg,image/webp"><p class="designerInfo">Use a built-in logo, design one, or upload an image. Logos are saved with your account.</p>
+ <div class="logoPreview" id="airlinePreview"><img id="airlinePreviewImg" alt="Custom airline logo" style="display:${draftLogoData?'block':'none'}" src="${draftLogoData}"><div><strong id="airlinePreviewText">${safeHTML(current?.name||'YOUR AIRLINE')}</strong><div class="designerInfo">Logo displayed on the tail and aircraft sides</div><div class="liveryBanner" id="airlinePreviewBand"></div></div></div>
+ <div class="row"><button id="newAirline">➕ NEW AIRLINE</button><button class="primary" id="saveAirline">💾 SAVE AIRLINE</button><button id="removeLogo">REMOVE IMAGE</button><button id="airlineCancel">BACK</button></div>
+ <h3>Your airlines</h3><div class="cards">${customAirlines.length?customAirlines.map((a,i)=>`<div class="item"><strong>${safeHTML(a.name)}</strong><small>Custom colour & logo</small><button data-select-airline="${i}">✈️ Use this airline</button><button data-edit-airline="${i}">🎨 Edit</button><button data-delete-airline="${i}">🗑️ Delete</button></div>`).join(''):'<div class="item">No custom airlines yet.</div>'}</div>`);
+ const preview=()=>{$('airlinePreviewText').textContent=$('airlineName').value.trim()||'YOUR AIRLINE';$('airlinePreviewBand').style.background=`linear-gradient(90deg, ${$('airlinePrimary').value} 70%, ${$('airlineSecondary').value} 70%)`;$('airlinePreviewImg').src=draftLogoData;$('airlinePreviewImg').style.display=draftLogoData?'block':'none'};
+ $('airlineName').oninput=preview;$('airlinePrimary').oninput=preview;$('airlineSecondary').oninput=preview;preview();
+ $('useEmojiLogo').onclick=()=>{draftLogoData=builtinEmojiFlightLogo;preview();notify('😀 Emoji Flight logo selected. Click SAVE AIRLINE to put it on your plane!')};
+ const logoCanvas=$('logoDesignCanvas'),logoCtx=logoCanvas.getContext('2d');
+ function paintDesignedLogo(){let g=logoCtx,w=300,h=300,bg=$('logoBackground').value,fg=$('logoForeground').value,words=$('logoWords').value.trim().toUpperCase().slice(0,18);g.clearRect(0,0,w,h);g.fillStyle=bg;g.fillRect(0,0,w,h);g.strokeStyle=fg;g.lineWidth=7;g.beginPath();g.arc(150,115,94,0,Math.PI*2);g.stroke();g.font='116px Arial, sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillStyle=fg;g.fillText($('logoSymbol').value,150,116);let font=38;do{g.font='bold '+font+'px Arial, sans-serif';font-=2}while(g.measureText(words).width>270&&font>18);g.fillText(words,150,264,274)}
+ $('designLogo').onclick=()=>{$('logoDesigner').style.display=$('logoDesigner').style.display==='none'?'block':'none';paintDesignedLogo()};
+ for(const id of ['logoWords','logoSymbol','logoBackground','logoForeground'])$(id).addEventListener('input',paintDesignedLogo);
+ $('applyDesignedLogo').onclick=()=>{paintDesignedLogo();draftLogoData=logoCanvas.toDataURL('image/png');preview();notify('🎨 Your logo is ready! Click SAVE AIRLINE to put it on your plane.')};
+ $('airlineUpload').onchange=async e=>{const file=e.target.files[0];if(!file)return;if(!['image/png','image/jpeg','image/webp'].includes(file.type)){notify('Please use a PNG, JPEG or WebP image.');return}if(file.size>12*1024*1024){notify('Choose an image smaller than 12 MB.');return}
+   const objectURL=URL.createObjectURL(file),im=new Image();im.onload=()=>{const c=document.createElement('canvas');let scale=Math.min(1,400/im.width,400/im.height);c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));c.getContext('2d').drawImage(im,0,0,c.width,c.height);draftLogoData=c.toDataURL('image/png');URL.revokeObjectURL(objectURL);preview()};im.onerror=()=>{URL.revokeObjectURL(objectURL);notify('Could not read this image.');};im.src=objectURL;
+ };
+ $('newAirline').onclick=()=>{makeNewAirline=true;showAirlineCreator()};$('removeLogo').onclick=()=>{draftLogoData='';preview()};$('airlineCancel').onclick=close;
+ $('saveAirline').onclick=()=>{
+  const name=$('airlineName').value.trim().replace(/\s+/g,' ');if(!name||name.length>28){notify('Give your airline a name (1–28 characters).');return}
+  if(airlines.some(x=>x.toLowerCase()===name.toLowerCase())){notify('Choose a different name from the existing airlines.');return}
+  const duplicate=customAirlines.findIndex(a=>a.name.toLowerCase()===name.toLowerCase());
+  const existingIndex=customAirlines.findIndex(a=>a.name===current?.name);
+  if(duplicate!==-1&&duplicate!==existingIndex){notify('An airline already has that name.');return}
+  if(existingIndex<0&&customAirlines.length>=20){notify('You can save up to 20 airlines.');return}
+  const entry={name,primary:$('airlinePrimary').value,secondary:$('airlineSecondary').value,logo:draftLogoData};
+  const backup=[...customAirlines];if(existingIndex>=0)customAirlines.splice(existingIndex,1,entry);else customAirlines.push(entry);
+  if(!saveCustomAirlines()){customAirlines=backup;return}
+  airline=name;makeNewAirline=false;drawLiveryTexture();refresh();notify('✈️ '+name+' is now your airline!');showAirlineCreator();
+ };
+ document.querySelectorAll('[data-select-airline]').forEach(b=>b.onclick=()=>{airline=customAirlines[+b.dataset.selectAirline].name;drawLiveryTexture();refresh();close();notify('Using '+airline)});
+ document.querySelectorAll('[data-edit-airline]').forEach(b=>b.onclick=()=>{airline=customAirlines[+b.dataset.editAirline].name;makeNewAirline=false;showAirlineCreator()});
+ document.querySelectorAll('[data-delete-airline]').forEach(b=>b.onclick=()=>{const index=+b.dataset.deleteAirline,removed=customAirlines.splice(index,1)[0];saveCustomAirlines();if(airline===removed.name)airline='Air France';drawLiveryTexture();refresh();showAirlineCreator()});
+}
+let player={x:0,y:1.75,z:18,yaw:0,pitch:-.04};let seatedAt=null;function resetPlayer(x,z,yaw=0){seatedAt=null;player.x=x;player.y=1.75;player.z=z;player.yaw=yaw;player.pitch=-.04}
+function terminal(){vertices=[]; // floor and structure
+box(0,-.14,0,50,.28,59,'floor');for(let z=-27;z<=27;z+=4){box(0,-.01,z,50,.025,.045,'silver')}for(let x=-24;x<=24;x+=4)box(x,-.01,0,.045,.026,59,'silver');
+box(0,9.65,0,50,.55,59,'wall');for(let x=-24;x<=24;x+=8)for(let z=-26;z<=26;z+=10)box(x,9.25,z,.22,.2,9,'silver');for(let z=-27;z<=27;z+=8)box(0,9.25,z,50,.2,.2,'silver');
+// walls and glass curtains at far side
+for(let z of [-28.8,28.8]){box(0,1,z,50,2,.5,'wall');box(0,8.45,z,50,1.6,.5,'wall');for(let x=-25;x<=25;x+=5){box(x,4.7,z,.32,5.4,.32,'dark');box(x+2.4,4.7,z,.07,5.1,.16,'glass')}box(0,5,z,50,.17,.34,'silver')}
+for(let x of [-25,25]){box(x,4.7,0,.5,9.5,58,'wall');for(let z=-24;z<=24;z+=12){box(x,4.8,z,.7,9.5,.7,'silver')}}
+// Interior architectural partitions: real solid lower walls with framed glass above.
+for(let x of [-23.6,23.6])for(let z of [-12,7,20]){
+ box(x,1.35,z,.38,2.7,7.5,'wall');
+ box(x,4.35,z,.34,3.3,7.5,'glass');
+ for(let zz of [z-3.75,z,z+3.75])box(x,4.35,zz,.5,3.5,.2,'dark');
+ box(x,6.15,z,.6,.28,7.7,'chrome');
+}
+// Short glass partitions beside the departure gate waiting area, leaving the centre aisle open.
+for(let x of [-22,22]){
+ box(x,1.0,-22,5,2,.28,'wall');box(x,3.2,-22,5,2.5,.18,'glass');
+ for(let xx of [x-2.5,x,x+2.5])box(xx,3.1,-22,.18,2.7,.25,'chrome');
+}
+// Airport-style retractable-belt queue lanes. Posts are actual 3D cylinders and the belts
+// are horizontal solid bands, not flat floor markings.
+function queuePost(x,z){cylinder(x,.55,z,.105,1.1,'chrome','y');cylinder(x,1.12,z,.17,.13,'dark','y');cylinder(x,.075,z,.21,.14,'chrome','y')}
+function queueBelt(x1,z1,x2,z2,color='blue'){
+ queuePost(x1,z1);queuePost(x2,z2);
+ if(Math.abs(z2-z1)<.01)box((x1+x2)/2,.91,z1,Math.abs(x2-x1),.13,.07,color);
+ else if(Math.abs(x2-x1)<.01)box(x1,.91,(z1+z2)/2,.07,.13,Math.abs(z2-z1),color);
+}
+// Check-in serpentine queue, with open ends for walking between the lanes.
+for(let zz of [17.2,19.3,21.4]){
+ queueBelt(-22,zz,-16,zz,'blue');queueBelt(-13.5,zz,-7.5,zz,'blue');
+}
+for(let zz of [17.2,19.3])queueBelt(-22,zz,-22,zz+2.1,'blue');
+for(let zz of [19.3,21.4])queueBelt(-7.5,zz,-7.5,zz+2.1,'blue');
+// Security lines: keep a clear walkable entrance and exit around the scanner.
+for(let xx of [-5.8,5.8])queueBelt(xx,5.2,xx,9.6,'red');
+queueBelt(-5.8,9.6,-1.2,9.6,'red');queueBelt(1.2,9.6,5.8,9.6,'red');
+queueBelt(-5.8,7.4,-1.2,7.4,'blue');queueBelt(1.2,7.4,5.8,7.4,'blue');
+// Gate boarding queue lines with wide entry gaps.
+for(let gx of [-13,0,13]){
+ queueBelt(gx-2.8,-18.9,gx-2.8,-16.0,'blue');
+ queueBelt(gx+2.8,-18.9,gx+2.8,-16.0,'blue');
+}
+// architecture
+for(let x of [-19,-8,8,19])for(let z of [-16,0,16]){box(x,4.7,z,.8,9.4,.8,'silver');box(x,8.8,z,1.1,.35,1.1,'dark')}
+// lighting strips
+for(let x=-21;x<=21;x+=7)for(let z=-24;z<=24;z+=8)box(x,9.29,z,3.7,.055,.44,'light');
+// check in desks + belts + posts
+for(let x of [-17,-9,-1,7]){box(x,1.0,12.3,5,1.4,2.1,'white');box(x,1.82,12.3,5,.22,2.3,'navy');box(x,3.2,12.0,4.5,1.4,.2,'blue');box(x,1.5,10.3,2,.75,1.1,'dark');box(x,1.9,9.7,1,.5,.15,'black');box(x,1.0,14.5,2,.6,2.3,'grey')}
+for(let x of [-20,-15,-10,-5,0,5,10])for(let z of [17.3,21]){cylinder(x,.55,z,.07,1.1,'silver','y');box(x,.93,z,1.2,.08,.08,'blue')}
+// security screening central
+for(let x of [-8,0,8]){box(x,1,2.5,3.5,1.4,1.3,'grey');box(x,1.8,2.5,3.8,.17,1.5,'navy');box(x,2.2,0.5,2.7,.28,.35,'silver');box(x-2,2,1, .4,4,.4,'blue');box(x+2,2,1,.4,4,.4,'blue');box(x,3.9,1,4.4,.35,.55,'blue');box(x-2,1,1,.2,2,.5,'black');box(x+2,1,1,.2,2,.5,'black')}
+for(let x of [-12,-4,4,12])for(let z of [5,8]){cylinder(x,.52,z,.06,1.04,'silver','y');box(x,.9,z,1.5,.05,.08,'red')}
+// Full 3D terminal retail: illuminated entrances, shelves, counters and merchandise
+for(let [x,theme] of [[-20,'pink'],[18,'blue']]){
+ box(x,3,-9,9,6,6,'white');box(x,5.85,-6.05,9,.45,.35,'dark');
+ for(let xx of [x-4.3,x+4.3])box(xx,3,-5.98,.26,5.7,.32,'chrome');
+ box(x,5.1,-5.95,8.7,.8,.35,theme);box(x,1.1,-6.5,5.8,1.4,1.05,'wood');box(x,1.88,-6.5,5.8,.18,1.1,'white');
+ for(let xx of [x-3.5,x+3.5]){box(xx,2.7,-9.5,1.25,4.8,3.5,'wood');for(let yy of [1.15,2.2,3.25,4.3]){box(xx,yy,-8.6,1.1,.14,3,'white');for(let zz of [-9.6,-8.7,-7.8])box(xx,yy+.3,zz,.5,.5,.48,yy>3?'gold':theme)}}
+ box(x,2.65,-12,6.6,4.8,.18,'shopglass');box(x,3,-11.8,5.6,3.3,.12,'glass');
+ for(let xx of [x-2.3,x+2.3])for(let zz of [-7.9,-8.9]){cylinder(xx,1.75,zz,.25,.55,'gold','y');box(xx,1.2,zz,.58,.45,.58,'orange')}
+}
+// storefront sign and ticket vending machines
+for(let x of [-16,14]){box(x,.85,-3,1.2,1.7,.75,'blue');box(x,1.2,-2.58,.95,.78,.07,'dark');box(x,.45,-2.55,.5,.18,.08,'gold')}
+// food counter
+box(0,1.05,-9,9,1.8,3,'white');box(0,2,-9,9,.16,3.2,'gold');box(0,4.4,-11,10,1.1,.5,'blue');
+// 3D cafe display: sandwiches, pizza, burgers, croissants, drinks and cake
+for(let [i,xx] of [-3.6,-2,-.3,1.5,3.3].entries()){
+  box(xx,2.25,-8.1,1.15,.13,.9,'wood');
+  if(i===0){box(xx,2.44,-8.1,.95,.24,.69,'gold');box(xx,2.57,-8.1,.82,.07,.6,'green');box(xx,2.67,-8.1,.95,.18,.69,'gold')}
+  if(i===1){cylinder(xx,2.46,-8.1,.48,.14,'orange','y');cylinder(xx,2.57,-8.1,.35,.06,'red','y')}
+  if(i===2){cylinder(xx,2.4,-8.1,.47,.2,'gold','y');box(xx,2.57,-8.1,.9,.13,.75,'green');cylinder(xx,2.68,-8.1,.46,.17,'gold','y')}
+  if(i===3){cylinder(xx,2.49,-8.1,.37,.38,'pink','y');cylinder(xx,2.72,-8.1,.25,.06,'white','y')}
+  if(i===4){cylinder(xx,2.54,-8.1,.23,.55,'white','y');box(xx,2.84,-8.1,.55,.06,.55,'red')}
+}
+for(let xx of [-3,-1,1,3]){box(xx,3.64,-10.67,1.6,.68,.14,'dark');box(xx,3.62,-10.55,1.4,.4,.08,'gold')}
+
+// Airport-style upholstered metal bench seating, armrests and luggage
+for(let x of [-15,-7,1,9,16])for(let z of [-16.6,-19.6]){
+ box(x,.55,z,4.45,.17,1.15,'chrome');
+ for(let dx of [-1.4,0,1.4]){
+  box(x+dx,.78,z,1.3,.27,1.12,'leather');box(x+dx,1.34,z-.52,1.28,1.06,.19,'seatlight');
+  box(x+dx,1.82,z-.56,1.17,.18,.23,'cushion');
+ }
+ for(let dx of [-2.16,-.7,.7,2.16]){box(x+dx,.98,z,.1,.4,1.18,'chrome');box(x+dx,1.18,z,.2,.12,1.17,'chrome')}
+ for(let dx of [-2.08,2.08]){box(x+dx,.35,z,.16,.7,.9,'dark');box(x+dx,.12,z,.35,.15,1.2,'chrome')}
+}
+// gates with boarding desks
+for(let x of [-13,0,13]){box(x,3.9,-24,7,4,.35,'glass');box(x-3.6,3.6,-24,.3,6,.4,'dark');box(x+3.6,3.6,-24,.3,6,.4,'dark');box(x,5.7,-24,7.3,.35,.4,'blue');box(x,1,-21.7,4,1.4,1.3,'white');box(x,1.8,-21.7,4,.18,1.5,'dark');box(x-1.4,2.3,-22,1,.8,.18,'black');}
+// departures boards
+box(0,5,-3.1,11,3,.2,'dark');box(0,6.7,-3.1,11,.18,.3,'blue');
+// airplanes & tarmac outside glass
+box(0,-.35,-47,90,.2,35,'tarmac');for(let x=-36;x<=36;x+=12)box(x,-.21,-46,.17,.05,15,'yellow');airplane(-16,2,-40,'A320','#f9fcff','#2679c8');airplane(17,2,-48,'A380','#f5f8ff','#ee5656');airplane(0,2,-59,'B747','#f9fcff','#267bb0');
+// ramp equipment
+for(let x of [-24,9,25]){box(x,.5,-37,2.5,1.1,1.7,'gold');for(let dx of [-.8,.8])cylinder(x+dx,.12,-36.4,.28,.25,'black','x');box(x,.9,-34,1,.9,2,'white')}
+return makeMesh()}
+// Aircraft are built from curved cross-section rings rather than block fuselages.
+// All aircraft face +X; Z is their wingspan direction.
+function fuselageLoft(cx,cy,cz,stations,colour,segments=18){
+ const rings=stations.map(([xx,ry,rz,yshift=0])=>Array.from({length:segments},(_,i)=>{
+  const ang=i*2*Math.PI/segments;
+  return [cx+xx,cy+yshift+Math.sin(ang)*ry,cz+Math.cos(ang)*rz]
+ }));
+ for(let n=0;n<rings.length-1;n++)for(let j=0;j<segments;j++){
+  let k=(j+1)%segments;
+  quad(rings[n][j],rings[n+1][j],rings[n+1][k],rings[n][k],colour)
+ }
+ for(let j=1;j<segments-1;j++){
+  tri(rings[0][0],rings[0][j+1],rings[0][j],colour);
+  tri(rings[rings.length-1][0],rings[rings.length-1][j],rings[rings.length-1][j+1],colour)
+ }
+}
+function wingSolid(points,color,thick=.12){
+ quad(...points,color);
+ quad(...points.map(p=>[p[0],p[1]-thick,p[2]]).reverse(),color);
+ for(let i=0;i<4;i++){
+  let a=points[i],b=points[(i+1)%4];
+  quad(a,b,[b[0],b[1]-thick,b[2]],[a[0],a[1]-thick,a[2]],color)
+ }
+}
+function aircraftEngine(x,y,z,r,len,accent){
+ // Axial engine with an intake lip, dark inlet and center spinner.
+ cylinder(x,y,z,r,len,'silver','x',r*.87,18);
+ cylinder(x+len*.49,y,z,r*.91,.09,'dark','x',r*.89,18);
+ cylinder(x+len*.53,y,z,r*.79,.03,'black','x',r*.78,18);
+ cylinder(x+len*.565,y,z,r*.18,.13,'chrome','x',r*.08,12);
+ // Eight separate radial fan blades, visible in the front of the nacelle.
+ for(let i=0;i<8;i++){
+  let a=(i+.15)*Math.PI/4,b=(i+.74)*Math.PI/4,xx=x+len*.58;
+  tri([xx,y+Math.sin(a)*r*.17,z+Math.cos(a)*r*.17],
+      [xx,y+Math.sin(a)*r*.70,z+Math.cos(a)*r*.70],
+      [xx,y+Math.sin(b)*r*.67,z+Math.cos(b)*r*.67],'grey');
+ }
+ box(x-.5,y+r*.9,z,.62,.10,.12,accent);
+}
+function airplane(x,y,z,model,color,accent){
+ const wide=['A330','A350','B777','B747','A380'].includes(model);
+ const four=['B747','A380'].includes(model);
+ const is380=model==='A380',is747=model==='B747',a350=model==='A350';
+ const len=({A320:10.6,B737:10.4,A321:12.4,A330:15.7,A350:16.5,B777:17.2,B747:19.2,A380:20.7})[model]||11;
+ const rad=wide?(four?1.24:1.12):.84;
+ const span=({A320:5.8,B737:5.5,A321:6.0,A330:9.4,A350:10.0,B777:10.6,B747:11.4,A380:12.5})[model]||6;
+ const center=y+rad*.97;
+ // Streamlined long fuselage with tapered tail and smoothly curved nose.
+ fuselageLoft(x,center,z,[
+  [-len*.52,.06,.09,-.13],[-len*.49,rad*.52,rad*.60,-.04],
+  [-len*.41,rad*.84,rad*.92,0],[-len*.29,rad,rad,0],
+  [len*.20,rad,rad,0],[len*.37,rad*.98,rad*.98,0],
+  [len*.445,rad*.76,rad*.82,-.10],[len*.49,rad*.37,rad*.48,-.20],
+  [len*.515,.035,.04,-.28]
+ ],color,24);
+ // Airline lower-fuselage line on both sides, keeping windows visible.
+ for(let side of [-1,1]){
+  box(x,center-rad*.37,z+side*(rad*.93),len*.75,.095,.035,accent);
+  for(let i=0;i<Math.floor(len/.57);i++){
+   let xx=x-len*.365+i*.57;
+   if(xx>x+len*.34)break;
+   let zz=z+side*(rad*.963);
+   box(xx,center+rad*.30,zz,.31,.23,.045,'silver');
+   box(xx,center+rad*.30,zz+side*.027,.255,.165,.046,'dark');
+  }
+  for(let dx of [-len*.375,len*.32]){
+   box(x+dx,center-.02,z+side*rad*.988,.37,rad*.92,.07,'silver');
+   box(x+dx,center+rad*.27,z+side*(rad*1.0+.016),.22,.10,.07,'dark');
+  }
+ }
+ // Smooth top decks: the A380 has two complete window rows; the 747 a short hump.
+ if(four){
+  const upLen=is380?len*.84:len*.38;
+  const shift=is380?-.1:len*.205;
+  const upperY=center+rad*.91;
+  fuselageLoft(x+shift,upperY,z,[
+   [-upLen*.54,.03,.07,0],[-upLen*.48,rad*.38,rad*.53,0],
+   [-upLen*.34,rad*.53,rad*.67,0],[upLen*.25,rad*.53,rad*.67,0],
+   [upLen*.42,rad*.43,rad*.58,-.05],[upLen*.51,.02,.05,-.12]
+  ],color,20);
+  for(let side of [-1,1])for(let i=0;i<Math.floor(upLen/.65);i++){
+   let xx=x+shift-upLen*.35+i*.65;
+   if(xx>x+shift+upLen*.37)break;
+   let zz=z+side*rad*.67;
+   box(xx,upperY+rad*.15,zz,.28,.18,.06,'dark')
+  }
+ }
+ const rootY=center-rad*.42;
+ // Thick swept trapezoid wings with narrow wingtip fences, not flat floor tiles.
+ for(let side of [-1,1]){
+  const p0=[x+len*.18,rootY,z+side*.58],p1=[x-len*.18,rootY,z+side*.60];
+  const p2=[x-len*.34,rootY-.15,z+side*span],p3=[x-len*.16,rootY-.15,z+side*span];
+  wingSolid([p0,p1,p2,p3],'silver',.17);
+  wingSolid([[p0[0]-.12,rootY+.022,p0[2]],[p1[0]+.12,rootY+.022,p1[2]],
+             [p2[0]+.08,rootY-.125,p2[2]],[p3[0]-.05,rootY-.125,p3[2]]],color,.03);
+  // Trailing-edge flaps and a vivid wingtip.
+  let outZ=z+side*span;
+  box(x-len*.25,rootY-.10,z+side*(span*.66),len*.15,.048,.13,'grey');
+  wingSolid([[p3[0]-.12,rootY-.15,outZ],[p2[0]+.13,rootY-.15,outZ],
+    [p2[0]+.13,rootY+.72,outZ+side*.22],[p3[0]-.12,rootY+.72,outZ+side*.22]],accent,.055);
+  // Distinct underwing nacelle locations for four-engine jets.
+  let locs=four?[span*.31,span*.66]:[span*.48];
+  for(let k=0;k<locs.length;k++){
+   let distance=locs[k],ex=x+len*.025-k*.60;
+   aircraftEngine(ex,rootY-rad*(four?.44:.48),z+side*distance,four?.52:(wide?.68:.44),wide?2.10:1.7,accent)
+  }
+ }
+ // Vertical stabilizer swept back with properly defined leading and trailing edges.
+ const tx=x-len*.40,base=center+rad*.70,top=base+(four?3.45:wide?2.9:2.2);
+ wingSolid([[tx+len*.13,base,z],[tx-len*.06,base,z],
+   [tx-len*.035,top,z],[tx+len*.025,top,z]],accent,.13);
+ // horizontal stabilizers on the tail
+ for(let side of [-1,1]){
+  wingSolid([[x-len*.35,center+rad*.52,z+side*.36],
+             [x-len*.48,center+rad*.52,z+side*.4],
+             [x-len*.54,center+rad*.52,z+side*span*.37],
+             [x-len*.42,center+rad*.52,z+side*span*.37]],color,.11)
+ }
+ // Cockpit windscreens positioned on the forward nose, both sides.
+ for(let side of [-1,1]){
+  let cz=z+side*rad*.70;
+  box(x+len*.41,center+rad*.38,cz,.69,.32,.10,'dark');
+  box(x+len*.44,center+rad*.40,cz+side*.055,.25,.035,.11,'silver');
+ }
+ // Aircraft lights and gear: one nose leg, two or four main landing assemblies.
+ box(x+len*.45,center+rad*.15,z,.17,.14,.13,'gold');
+ const legs=four?[[-len*.11,-rad*.65],[-len*.11,rad*.65],[-len*.23,-rad*.65],[-len*.23,rad*.65]]:
+   [[-len*.08,-rad*.64],[-len*.08,rad*.64]];
+ legs.push([len*.30,0]);
+ for(let [dx,dz] of legs){
+  box(x+dx,y+.25,z+dz,.13,.58,.13,'grey');
+  cylinder(x+dx,y+.04,z+dz,.25,.23,'black','z');
+  cylinder(x+dx,y+.04,z+dz+.13,.10,.025,'silver','z')
+ }
+}
+
+let flight={speed:0,alt:0,distance:0,heading:0,bank:0,pitch:0,throttle:0,landed:false,started:false,autopilot:"",airborne:false,touchdown:false,taxiProgress:0,approachProgress:0};
+function flightWorld(){vertices=[];
+ // Airport ground, runway, taxiways, apron, terminals and city skyline.
+ box(0,-.18,0,1750,.35,1100,'#4e9563');
+ // Main runway
+ box(40,-.03,0,1350,.08,48,'#424c57');
+ for(let x=-580;x<700;x+=36)box(x,.015,0,18,.018,1.1,'white');
+ for(let zz of [-21,21])box(40,.01,zz,1350,.03,.28,'white');
+ for(let x=-560;x<-470;x+=7)for(let zz of [-14,-9,-4,4,9,14])box(x,.03,zz,3,.04,.7,'white');
+ // Taxiways and apron floor
+ box(-285,-.02,-25,240,.06,18,'#5e6874');
+ box(-360,-.02,-58,180,.06,18,'#5e6874');
+ box(-365,-.02,-88,190,.06,72,'#717b85');
+ box(160,-.02,-55,130,.06,58,'#717b85');
+ for(let x of [-395,-350,-305,-260,-215,122,160,198])box(x,.01,-58,2.8,.03,.48,'gold');
+ // Real paved taxiway surfaces follow the actual aircraft route, including turns.
+ // Each strip is a flat 3D quadrilateral, not a floating path in the sky.
+ function pavement(ax,az,bx,bz,width,color,height=.045){
+   const dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz)||1,nx=-dz/len,nz=dx/len;
+   const a=[ax+nx*width/2,height,az+nz*width/2],b=[bx+nx*width/2,height,bz+nz*width/2];
+   const c=[bx-nx*width/2,height,bz-nz*width/2],d=[ax-nx*width/2,height,az-nz*width/2];
+   tri(a,b,c,color);tri(a,c,d,color);
+ }
+ function taxiPath(points,width=24){
+   // Grey airport taxiway, yellow centreline, and narrow white edge lines.
+   for(let i=0;i<points.length-1;i++){
+     const [ax,az]=points[i],[bx,bz]=points[i+1],dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz)||1;
+     pavement(ax,az,bx,bz,width,'#606a73',.065);
+     pavement(ax,az,bx,bz,.65,'#ffd448',.085);
+     const nx=-dz/len,nz=dx/len;
+     for(let side of [-1,1])pavement(ax+nx*side*(width/2-1.2),az+nz*side*(width/2-1.2),bx+nx*side*(width/2-1.2),bz+nz*side*(width/2-1.2),.18,'#d7dfe2',.09);
+   }
+   // Wide rounded-looking joints at corners so the taxiway never has gaps.
+   for(let i=1;i<points.length-1;i++){
+     let [x,z]=points[i];box(x,.053,z,width*.8,.06,width*.8,'#606a73');
+     box(x,.096,z,1,.012,1,'gold');
+   }
+ }
+ // Departure stand -> pushback -> taxi-out -> runway threshold.
+ taxiPath([[-330,-87],[-355,-93],[-320,-75],[-275,0],[-250,0]],22);
+ // Landing runway exit -> curved taxiway -> jetway parking stand.
+ taxiPath([[65,0],[120,0],[155,-18],[190,-80],[182,-87]],24);
+ // Large concrete apron at the arrival gate, with yellow stand guidance.
+ box(183,.018,-88,94,.08,57,'#808c96');
+ pavement(190,-80,182,-87,.8,'#ffd448',.13);
+ // Runway hold-short lines at both runway intersections.
+ for(let x of [-250,117])for(let dz of [-8,-5,5,8])box(x,.14,dz,1.0,.025,1.0,'gold');
+ // Departure terminal with glass front
+ box(-345,2.5,-87,150,5,40,'silver');box(-345,5.85,-87,152,1.05,40,'navy');
+ for(let xx=-410;xx<-280;xx+=7){box(xx,4.2,-69.9,5.7,4.0,.16,'glass');box(xx,2.5,-69.8,.18,4.2,.22,'chrome')}
+ // Departure jetways / piers
+ for(let [jx,jz] of [[-379,-76],[-345,-87],[-311,-98]]){box(jx,2.0,jz,18,4.0,5.2,'white');box(jx,3.8,jz,18,.25,5.4,'navy');box(jx,2.0,jz,17.2,4.0,.18,'glass')}
+ // Arrival concourse / terminal by the parking stand
+ box(170,3.0,-87,120,6,38,'silver');box(170,6.3,-87,122,1.0,40,'navy');
+ for(let xx=120;xx<225;xx+=7){box(xx,4.6,-69.9,5.5,4.2,.14,'glass');box(xx,2.5,-69.8,.15,4.2,.20,'chrome')}
+ for(let [jx,jz] of [[145,-77],[178,-87]]){box(jx,2.0,jz,18,4.0,5.2,'white');box(jx,3.8,jz,18,.25,5.4,'navy');box(jx,2.0,jz,17.2,4.0,.18,'glass')}
+ // Service road / airport markings
+ for(let xx=-10;xx<=260;xx+=34){box(xx,0,-25,.65,.18,.65,'gold');box(xx,0,25,.65,.18,.65,'gold')}
+ for(let xx of [10,21,32])for(let zz of [-13,13])box(xx,.02,zz,4,.04,.75,'white');
+ // Apron equipment
+ for(let x of [-395,-340,-285,135,180]){box(x,.55,-56,3.2,1.1,1.7,'gold');for(let dx of [-1.0,1.0])cylinder(x+dx,.12,-55.3,.30,.25,'black','x');box(x,1.0,-53.2,1.1,.95,2.0,'white')}
+ // City skyline beyond the airport so the outside view is not empty.
+ for(let i=0;i<20;i++){
+   let xx=30+i*34,zz=-175-(i%4)*18,w=16+(i%3)*6,d=16+(i%5)*4,h=22+(i%6)*9;
+   box(xx,h/2,zz,w,h,d,i%3===0?'#6c8ea6':i%3===1?'#879aab':'#70879b');
+   box(xx,h+.35,zz,w*.72,.35,d*.72,'light');
+ }
+ for(let i=0;i<10;i++){
+   let xx=-470+i*26,zz=-170-(i%3)*15,w=15+(i%2)*5,d=15+(i%4)*3,h=18+(i%5)*8;
+   box(xx,h/2,zz,w,h,d,i%2?'#7a8d9d':'#68849a');
+ }
+ return makeMesh()}
+let flyingPlaneMesh=null;function buildFlyingPlane(){vertices=[];const own=activeCustom();airplane(0,0,0,plane,'white',own?own.primary:airline==='Air France'?'blue':airline==='Air China'?'red':'green');flyingPlaneMesh=makeMesh();drawLiveryTexture()}
+function planePosition(){
+ if(flight.autopilot==='pushback'){
+   const t=Math.min(1,flight.pushbackProgress||0);
+   return [-330-25*t,0,-87-6*t];
+ }
+ if(flight.autopilot==='taxiout'){
+   const t=Math.min(1,flight.taxiOutProgress||0);
+   if(t<.35){ const k=t/.35; return [-355+35*k,0,-93+18*k]; }
+   if(t<.78){ const k=(t-.35)/.43; return [-320+45*k,0,-75+75*k]; }
+   const k=(t-.78)/.22; return [-275+25*k,0,0];
+ }
+ if(flight.autopilot==='landing' || flight.autopilot==='rollout' || flight.autopilot==='taxi' || flight.landed){
+   if(flight.autopilot==='landing')return [-230+flight.approachProgress*230,flight.alt,0];
+   if(flight.autopilot==='rollout')return [Math.min(65,flight.rolloutProgress||0),0,0];
+   const t=Math.min(1,flight.taxiProgress||0);
+   // Follow runway, turn onto the taxiway, then park next to the terminal jetway.
+   if(t<.32)return [65+55*t/.32,0,0];
+   if(t<.58)return [120+35*(t-.32)/.26,0,-18*(t-.32)/.26];
+   if(t<.86)return [155+35*(t-.58)/.28,0,-18-62*(t-.58)/.28];
+   return [190-8*(t-.86)/.14,0,-80-7*(t-.86)/.14];
+ }
+ return [-250+flight.distance*.85,flight.alt,0];
+}
+function flightModel(){
+ let a=flight.pitch*Math.PI/180,b=flight.bank*Math.PI/180,h=flight.heading*Math.PI/180;
+ const rotPitch=new Float32Array([Math.cos(a),Math.sin(a),0,0,-Math.sin(a),Math.cos(a),0,0,0,0,1,0,0,0,0,1]);
+ const rotBank=new Float32Array([1,0,0,0,0,Math.cos(b),Math.sin(b),0,0,-Math.sin(b),Math.cos(b),0,0,0,0,1]);
+ const rotYaw=new Float32Array([Math.cos(h),0,-Math.sin(h),0,0,1,0,0,Math.sin(h),0,Math.cos(h),0,0,0,0,1]);
+ let model=mul(rotYaw,mul(rotPitch,rotBank));
+ let pos=planePosition();model[12]=pos[0];model[13]=pos[1];model[14]=pos[2];return model;
+}
+function beginFlying(){exteriorCam=false;$('exteriorView').textContent='👁️ VIEW PLANE LOGO';
+ if(seatedAt)toggleSit();
+ if(!flightActive){showPlan();notify('Create a flight first');return}
+ if(!['cabin','flight'].includes(scene)){notify('Board first! For a quick flying test, use TEST FLIGHT NOW.');return}
+ if(scene==='flight')return;
+ if(!['takeoff','land','fly','exit','safety','serve'].includes(stage)){
+   notify('Finish boarding before entering the cockpit');return;
+ }
+ if(!flight.started && !flight.airborne && !flight.landed && stage!=='fly'){
+   flight={speed:0,alt:0,distance:0,heading:0,bank:0,pitch:0,throttle:0,landed:false,started:false,autopilot:'',airborne:false,touchdown:false,pushbackProgress:0,taxiOutProgress:0,pushbackDone:false};
+ }
+ buildFlyingPlane();loadScene('flight');$('flightHUD').style.display='block';$('flightControls').style.display='flex';
+ $('assistLanding').disabled=stage!=='land'&&stage!=='fly';
+ if(stage==='takeoff' && !flight.airborne && !flight.landed && !flight.pushbackDone){
+   flight.autopilot='pushback';flight.pushbackProgress=0;flight.taxiOutProgress=0;flight.speed=6;flight.throttle=0;flight.pitch=0;flight.bank=0;flight.heading=0;
+   notify('🚜 You are now sitting in the cockpit. The pushback tug is pulling the aircraft backward from the gate.');
+ }else{
+   notify(flight.airborne ? (stage==='land'?'Service complete! Press LAND to begin your approach.':'Return to the cabin to serve passengers before landing.') : 'Take off first! Press TAKE OFF when the aircraft reaches the runway.');
+ }
+}
+function finishFlying(){if(flight.landed)return;if(stage!=='land'&&stage!=='fly'){notify('Serve all passengers before landing!');return;}flight.landed=true;flight.speed=0;flight.throttle=0;flight.autopilot='';stage='exit';coins+=planeTypes[plane][2];save();refresh();notify('🛬 Parked at jetway in '+to+'! +'+planeTypes[plane][2]+' coins. Return to cabin and exit.');}
+function guidedTakeoff(){
+ if(scene!=='flight'||flight.landed)return;
+ if(flight.autopilot==='pushback' || flight.autopilot==='taxiout'){notify('Wait for pushback and taxi-out to finish first. Then you can take off.');return}
+ if(flight.airborne){notify('Already airborne. Fly toward the destination, then press LAND.');return}
+ flight.autopilot='takeoff';flight.throttle=100;flight.heading=0;notify('🛫 Takeoff roll! The aircraft accelerates and rotates automatically.');
+}
+function guidedLanding(){
+ if(scene!=='flight'||flight.landed)return;
+ if(!flight.airborne){notify('Take off first! Press TAKE OFF.');return}
+ if(stage!=='land'&&stage!=='fly'){notify('Go back to the cabin and serve all passengers first!');return}
+ if(flight.distance<320){notify('Keep flying! Landing approach unlocks after 320 m.');return}
+ flight.approachAlt=Math.max(50,flight.alt);flight.autopilot='landing';flight.touchdown=false;flight.approachProgress=0;flight.rolloutProgress=0;flight.taxiProgress=0;notify('🛬 Descending FORWARD toward the runway, then taxiing to the terminal jetway!');
+}
+function updateFlight(dt){
+ if(scene!=='flight'||$('overlay').style.display!=='none')return;
+ let control=keys.forward?1:keys.back?-1:0;
+ if(keys.throttleup){flight.throttle=Math.min(100,flight.throttle+45*dt);flight.autopilot=''}
+ if(keys.throttledown){flight.throttle=Math.max(0,flight.throttle-45*dt);flight.autopilot=''}
+ if(flight.autopilot==='pushback'){
+   flight.pushbackProgress=Math.min(1,(flight.pushbackProgress||0)+dt/6);
+   flight.speed=8;flight.alt=0;flight.pitch=0;flight.bank=0;flight.throttle=0;flight.heading=0;
+   if(flight.pushbackProgress>=1){flight.autopilot='taxiout';flight.taxiOutProgress=0;notify('🚕 Pushback complete. Taxiing out on the airport apron and turning toward the runway.');}
+ }else if(flight.autopilot==='taxiout'){
+   flight.taxiOutProgress=Math.min(1,(flight.taxiOutProgress||0)+dt/11);
+   const t=flight.taxiOutProgress;
+   flight.speed=t<.35?10:t<.78?16:12;flight.alt=0;flight.pitch=0;flight.bank=0;flight.throttle=18;
+   if(t<.35)flight.heading=18*(t/.35);
+   else if(t<.78)flight.heading=18+(0-18)*((t-.35)/.43);
+   else flight.heading=0;
+   if(flight.taxiOutProgress>=1){flight.autopilot='';flight.pushbackDone=true;flight.speed=0;flight.throttle=0;flight.heading=0;notify('🛫 Lined up on the runway. Press TAKE OFF!');}
+ }else if(flight.autopilot==='landing'){
+   // Keep moving FORWARD as the aircraft descends toward the runway.
+   flight.approachProgress=Math.min(1,(flight.approachProgress||0)+dt/12);
+   const t=flight.approachProgress;
+   flight.alt=Math.max(0,(flight.approachAlt||75)*(1-t));
+   flight.pitch=-Math.min(7,4+3*t);flight.bank=0;flight.heading=0;
+   flight.speed=185-55*t;flight.throttle=30;
+   if(t>=1){flight.alt=0;flight.pitch=0;flight.touchdown=true;flight.autopilot='rollout';flight.rolloutProgress=0;notify('🛞 Touchdown! Rolling forward, then turning onto the taxiway.');}
+ }else if(flight.autopilot==='rollout'){
+   flight.rolloutProgress=Math.min(65,(flight.rolloutProgress||0)+dt*11);
+   flight.speed=Math.max(20,120*(1-flight.rolloutProgress/65));flight.alt=0;flight.pitch=0;flight.heading=0;
+   if(flight.rolloutProgress>=65){flight.autopilot='taxi';flight.taxiProgress=0;notify('🚕 Taxiing along the airport floor toward the jetway!');}
+ }else if(flight.autopilot==='taxi'){
+   flight.taxiProgress=Math.min(1,(flight.taxiProgress||0)+dt/14);
+   const t=flight.taxiProgress;
+   flight.speed=24;flight.alt=0;flight.pitch=0;
+   if(t<.32)flight.heading=0;
+   else if(t<.58)flight.heading=-35*((t-.32)/.26);
+   else if(t<.86)flight.heading=-35-55*((t-.58)/.28);
+   else flight.heading=-90;
+   if(flight.taxiProgress>=1){finishFlying();notify('✈️ Parked at the jetway! +'+planeTypes[plane][2]+' coins. Return to cabin to exit.');}
+ }else{
+   let control=keys.forward?1:keys.back?-1:0;
+   if(keys.throttleup){flight.throttle=Math.min(100,flight.throttle+45*dt);flight.autopilot=''}
+   if(keys.throttledown){flight.throttle=Math.max(0,flight.throttle-45*dt);flight.autopilot=''}
+   if(flight.autopilot==='takeoff'){
+     flight.throttle=100;
+     if(flight.speed>110){flight.pitch+=(12-flight.pitch)*Math.min(1,dt*2.3);flight.airborne=true}
+     if(flight.alt>45){flight.airborne=true;flight.autopilot='cruise';flight.pitch=5;flight.throttle=75;notify('✈️ Airborne! Press CABIN, then serve passengers.');}
+   }else if(flight.autopilot==='cruise'){
+     flight.pitch+=(4-flight.pitch)*Math.min(1,dt*2);flight.throttle=75;
+   }else{
+     flight.pitch+=(control*16-flight.pitch)*Math.min(1,dt*1.8);
+     if(flight.speed>105&&control>0)flight.airborne=true;
+   }
+   flight.speed+=(flight.throttle*2.7-flight.speed)*Math.min(1,dt*.85);
+   if(!flight.landed){
+     flight.bank+=((keys.turnleft?-1:0)+(keys.turnright?1:0))*30*dt;
+     flight.bank*=Math.max(0,1-dt*.9);flight.heading+=((keys.turnleft?-1:0)+(keys.turnright?1:0))*24*dt;
+     if(flight.airborne)flight.alt=Math.max(0,flight.alt+Math.sin(flight.pitch*Math.PI/180)*flight.speed*dt*.5-(control===0&&flight.autopilot===''?dt*1.2:0));
+     flight.distance+=flight.speed*dt*.48;
+     if(flight.alt>2)flight.started=true;
+   }
+ }
+ let msg=flight.landed?'✈️ PARKED AT JETWAY — RETURN TO CABIN':flight.autopilot==='taxi'?'🚕 TAXIING TO JETWAY':flight.autopilot==='taxiout'?'🚕 TAXIING TO RUNWAY':flight.autopilot==='pushback'?'🚜 PUSHBACK FROM GATE':flight.touchdown?'🛞 RUNWAY ROLLOUT':flight.autopilot==='landing'?'🛬 DESCENDING FORWARD':flight.airborne?(stage==='land'||stage==='fly'?'✈️ SERVICE DONE — LAND after 320 m':'✈️ AIRBORNE — RETURN TO CABIN AND SERVE'):'🛞 ON RUNWAY — PRESS TAKE OFF';
+ $('flightHUD').innerHTML=`🧑‍✈️ COCKPIT · ${plane}<br>🛫 ${from.split(' ')[0]} → ${to.split(' ')[0]}<br>Speed: ${Math.round(flight.speed)} km/h<br>Altitude: ${Math.round(flight.alt)} m<br>Throttle: ${Math.round(flight.throttle)}%<br>Distance: ${Math.round(flight.distance)} m<br>${msg}`;
+}
+function returnToCabin(){if(scene!=='flight')return;$('flightHUD').style.display='none';$('flightControls').style.display='none';loadScene('cabin');updateDangerUI();if(flight.landed){notify('Landed! Walk to the exit door to disembark.');return}if(flight.airborne){if(stage==='takeoff'||stage==='fly'){stage='safety';notify('✈️ We are airborne! Do the safety demonstration, then serve passengers.');}else if(stage==='land')notify('All passengers served! Return to the cockpit and LAND.');else notify('In-flight service: complete your crew tasks.');}else{notify('You have not taken off yet. Go to the cockpit and press TAKE OFF.');}refresh();}
+function bridge(){vertices=[];
+ // Enclosed elevated jetway with ribbed floor, transparent side panels, and structural joints
+ box(0,-.18,-10,7.5,.36,30,'grey');box(0,.06,-10,7.1,.11,29.8,'floor');
+ box(0,4.55,-10,7.5,.36,30,'white');
+ for(let zz=-24;zz<=4;zz+=2.5){
+  for(let xx of [-3.75,3.75]){
+   box(xx,2.3,zz,.2,4.4,.24,'chrome');
+   box(xx,1.15,zz+1.2,.1,1.9,2.2,'shopglass');
+   box(xx,3.3,zz+1.2,.1,1.9,2.2,'glass');
+  }
+  box(0,4.26,zz,7.5,.18,.18,'navy');box(0,.12,zz,7.2,.05,.15,'dark');
+ }
+ for(let xx of [-3.7,3.7]){box(xx,.68,-10,.2,1.25,29.9,'blue');box(xx,3.9,-10,.2,.18,29.9,'chrome')}
+ for(let zz of [-20,-12,-4]){box(0,4.18,zz,3.6,.07,.65,'light');box(0,2.6,zz,.15,2.8,.15,'silver')}
+ box(0,3.55,-23.6,6.5,1.25,.3,'navy');box(0,1.35,-24.5,3.3,2.7,.15,'dark');
+ // External jetway support legs and apron markings
+ for(let zz of [-18,-7]){box(-2,-2,zz,.45,4,.45,'silver');box(2,-2,zz,.45,4,.45,'silver')}
+ box(0,-3,-26,60,.12,25,'tarmac');airplane(14,-1,-34,plane,'white','blue');
+ return makeMesh()}
+function seat(x,z,c){
+ // Forward-facing aircraft seats: noses point toward the cockpit at NEGATIVE Z.
+ // Seat backs are behind passengers (positive Z); open legroom is toward negative Z.
+ box(x,.58,z,1.35,.16,1.18,'chrome');box(x,.79,z-.1,1.22,.3,1.07,c);
+ box(x,1.45,z+.47,1.3,1.37,.27,c);box(x,2.18,z+.49,1.1,.28,.29,'cushion');
+ box(x,1.36,z+.3,.84,.75,.06,'seatlight');
+ for(let dx of [-.68,.68]){box(x+dx,1.02,z-.17,.13,.2,1.06,'chrome');box(x+dx,.74,z+.23,.1,.6,.12,'dark')}
+ box(x,.35,z,.17,.6,.85,'dark');box(x,.12,z,.95,.14,.8,'silver');
+ box(x,1.48,z-.65,.5,.1,.14,'gold');
+}
+function cabin(){vertices=[];let count=planeTypes[plane][1],rows=seatRows(),length=cabinLength();
+ box(0,-.12,-length/2,8.8,.23,length,'floor');box(0,5.2,-length/2,8.8,.25,length,'white');
+ // Rounded-looking cabin ceiling ribs and window panels
+ for(let zz=-length;zz<=0;zz+=2.2){
+  for(let xx of [-4.2,4.2]){box(xx,1.12,zz,.24,2.25,2.2,'white');box(xx,4.12,zz,.24,2.0,2.2,'white');box(xx,2.9,zz-.65,.24,1.55,.60,'white');box(xx,2.9,zz+.89,.24,1.55,.42,'white');box(xx*.965,2.88,zz+.20,.13,1.06,1.08,'chrome');box(xx*.955,2.88,zz+.20,.14,.84,.84,'glass')}
+  box(0,4.95,zz,3,.16,.32,'light');box(-2.9,4.55,zz,1.7,.45,1.5,'white');box(2.9,4.55,zz,1.7,.45,1.5,'white')
+ }
+ box(0,.02,-length/2,1.4,.035,length,'blue');
+ // Outside scenery through the cabin windows: apron and city skyline.
+ for(let side of [-1,1]){
+  box(side*11.5,-.25,-length/2,7.5,.18,length,'tarmac');
+  for(let zz=-length;zz<=0;zz+=9){
+   let h=3.5+((Math.floor((zz+length)/9)%4)*1.4);
+   box(side*16,h/2,zz,3.2,h,3.2,'#7892a7');
+   box(side*19,(h+2)/2,zz-3.8,4.2,h+2,4.2,'#6e8597');
+  }
+ }
+ for(let i=0;i<count;i++){
+  let before=vertices.length;
+  seat(seatX(i),seatZ(i),deckFor(i)?'cushion':'leather');
+  if(deckFor(i))for(let k=before;k<vertices.length;k+=9)vertices[k+1]+=DECK_HEIGHT;
+ }
+ if(hasUpper()){
+   // Accessible upper level: a complete floor, ceiling, and windows along both walls.
+   const upperLength=Math.max(16,Math.ceil(upperCount()/4)*SEAT_SPACING+8);
+   box(0,DECK_HEIGHT-.13,-upperLength/2,8.8,.24,upperLength,'floor');
+   box(0,DECK_HEIGHT+5.2,-upperLength/2,8.8,.22,upperLength,'white');
+   for(let z=-upperLength;z<0;z+=2.15){
+     for(let side of [-1,1]){
+       let x=side*4.2;
+       box(x,DECK_HEIGHT+1.0,z,.22,2.0,2.05,'white');
+       box(x,DECK_HEIGHT+3.96,z,.22,2.25,2.05,'white');
+       box(x,DECK_HEIGHT+2.70,z,.15,.95,1.20,'glass');
+       box(x,DECK_HEIGHT+2.70,z+.59,.26,1.10,.12,'chrome');
+     }
+     box(0,DECK_HEIGHT+5.01,z,3.0,.08,.32,'light');
+   }
+   // Stair entrance at the forward section of the plane (walk to this point and press J).
+   box(0,DECK_HEIGHT+.05,-2.75,1.8,.08,2.45,'blue');
+   for(let step=0;step<7;step++)box(0,.23+step*.72,-4.4-step*.34,1.7,.38,.48,'silver');
+   box(-1.1,DECK_HEIGHT*.56,-5.35,.14,DECK_HEIGHT*.92,3.6,'chrome');
+   box(1.1,DECK_HEIGHT*.56,-5.35,.14,DECK_HEIGHT*.92,3.6,'chrome');
+   box(0,DECK_HEIGHT+1.2,-upperLength+1.1,3.4,2.4,.25,'navy');
+ }
+ // Four seats per row, with a walkable central aisle and twice as many seats in each bank.
+ seat(-2.65,-2.25,'cushion');box(0,1.1,-1,2.4,2,1,'grey');box(0,1.1,-length+2,3.4,2,1,'navy');
+ return makeMesh()}
+// 3D travellers, crew and guards: fully modeled geometry, animated in WebGL.
+const crowds=[
+ {x:-20,z:18,axis:'z',length:13,rate:.50,phase:.3,kind:'traveller',color:'pink'},
+ {x:-12,z:19,axis:'z',length:15,rate:.41,phase:2.2,kind:'traveller',color:'blue'},
+ {x:-5,z:20,axis:'z',length:11,rate:.54,phase:1.3,kind:'traveller',color:'green'},
+ {x:3,z:18,axis:'z',length:10,rate:.44,phase:3.1,kind:'traveller',color:'purple'},
+ {x:14,z:19,axis:'z',length:18,rate:.40,phase:4.9,kind:'traveller',color:'gold'},
+ {x:21,z:15,axis:'z',length:11,rate:.51,phase:1.9,kind:'traveller',color:'pink'},
+ {x:-17,z:-16,axis:'x',length:4.6,rate:.58,phase:2.5,kind:'traveller',color:'green'},
+ {x:-5,z:-14,axis:'x',length:4.4,rate:.71,phase:3.7,kind:'traveller',color:'orange'},
+ {x:8,z:-15,axis:'x',length:4.1,rate:.56,phase:2.0,kind:'traveller',color:'blue'},
+ {x:17,z:-18,axis:'z',length:6,rate:.48,phase:.7,kind:'traveller',color:'purple'},
+ {x:-17,z:11,axis:'stand',kind:'staff',color:'navy'},
+ {x:-9,z:11,axis:'stand',kind:'staff',color:'navy'},
+ {x:-1,z:11,axis:'stand',kind:'staff',color:'navy'},
+ {x:7,z:11,axis:'stand',kind:'staff',color:'navy'},
+ {x:-6,z:2,axis:'stand',kind:'guard',color:'blue'},
+ {x:5,z:2,axis:'stand',kind:'guard',color:'blue'},
+ {x:-12,z:-21,axis:'stand',kind:'staff',color:'navy'},
+ {x:1,z:-21,axis:'stand',kind:'staff',color:'navy'},
+ {x:13,z:-21,axis:'stand',kind:'staff',color:'navy'}
+];
+const faces=['#ffda64','#ffe588','#e8b17d','#e8ca97'];
+function limb(a,b,r,c){let dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2],dist=Math.hypot(dx,dy,dz)||1;
+ let dir=[dx/dist,dy/dist,dz/dist],u=[dir[1],-dir[0],0],un=Math.hypot(...u);
+ if(un<.01)u=[1,0,0];else u=u.map(q=>q/un);
+ let v=[dir[1]*u[2]-dir[2]*u[1],dir[2]*u[0]-dir[0]*u[2],dir[0]*u[1]-dir[1]*u[0]];
+ for(let i=0;i<8;i++){let aa=i*Math.PI/4,bb=(i+1)*Math.PI/4;let pt=(o,angle)=>[a[0]+dir[0]*dist*o+r*(u[0]*Math.cos(angle)+v[0]*Math.sin(angle)),a[1]+dir[1]*dist*o+r*(u[1]*Math.cos(angle)+v[1]*Math.sin(angle)),a[2]+dir[2]*dist*o+r*(u[2]*Math.cos(angle)+v[2]*Math.sin(angle))];quad(pt(0,aa),pt(0,bb),pt(1,bb),pt(1,aa),c)}
+}
+function orb(x,y,z,r,col){const lat=6,lon=10;for(let a=0;a<lat;a++){let p=a*Math.PI/lat,q=(a+1)*Math.PI/lat;for(let b=0;b<lon;b++){let m=b*2*Math.PI/lon,n=(b+1)*2*Math.PI/lon;let pt=(t,u)=>[x+r*Math.sin(t)*Math.cos(u),y+r*Math.cos(t),z+r*Math.sin(t)*Math.sin(u)];quad(pt(p,m),pt(q,m),pt(q,n),pt(p,n),col)}}}
+function person(x,z,phase,kind='traveller',coat='blue',dir=1,face='#ffda64',seated=false,angle=0){
+ const vertexStart=vertices.length;let bob=seated?0:Math.abs(Math.sin(phase))*.045,fy=seated?0:.02+bob;
+ const headY=seated?1.85:2.52,torsoY=seated?1.08:1.54;
+ const shirt=kind==='guard'?'blue':kind==='staff'?'navy':coat;
+ // Real, round emoji head with dimensional eyes, nose and happy smile.
+ orb(x,headY+fy,z,.42,face);
+ for(let off of [-.15,.15])orb(x+off,headY+.08+fy,z+.378,.052,'black');
+ orb(x,headY-.09+fy,z+.414,.035,'orange');
+ for(let i=0;i<6;i++){let a=Math.PI*.13+i*Math.PI*.75/5;orb(x+Math.cos(a)*.22,headY-.12-Math.sin(a)*.12+fy,z+.37,.028,'dark')}
+ cylinder(x,torsoY+fy,z,.43,seated?.78:.95,shirt,'y',.37,12);
+ box(x,torsoY+.06+fy,z+.38,.42,.08,.06,kind==='staff'?'gold':'white');
+ if(kind==='guard'||kind==='staff'){
+   cylinder(x,headY+.40+fy,z,.43,.16,'navy','y');box(x,headY+.50+fy,z+.15,.75,.07,.5,'navy');
+ }
+ let sw=seated?0:Math.sin(phase)*.30;
+ // Two arms, articulated knees and legs; moving travellers swing their limbs.
+ limb([x-.42,torsoY+.30+fy,z],[x-.57,torsoY-.42+fy,z+sw*.3],.12,shirt);
+ limb([x+.42,torsoY+.30+fy,z],[x+.56,torsoY-.39+fy,z-sw*.3],.12,shirt);
+ for(let side of [-1,1]){
+   const bx=x+side*.20;
+   if(seated){limb([bx,.97,z],[bx,.74,z+.38],.155,'dark');limb([bx,.74,z+.38],[bx,.15,z+.46],.13,'dark');}
+   else {let stride=sw*side*dir;limb([bx,1.07+fy,z],[bx,.54+fy,z+stride*.55],.17,'dark');limb([bx,.54+fy,z+stride*.55],[bx,.12,z+stride],.145,'dark');}
+   box(bx,.105,z+(seated?.54:sw*side*dir),.38,.17,.56,'black');
+ }
+ if(kind==='traveller'&&!seated){let lx=x+.78;box(lx,.56+fy,z+.1,.43,.8,.48,coat);box(lx,.98+fy,z+.10,.22,.30,.20,'chrome');for(let off of [-.13,.13])cylinder(lx+off,.12,z+.1,.10,.13,'black','x')}
+ if(angle){let ca=Math.cos(angle),sa=Math.sin(angle);for(let k=vertexStart;k<vertices.length;k+=9){let px=vertices[k]-x,pz=vertices[k+2]-z;vertices[k]=x+px*ca+pz*sa;vertices[k+2]=z-px*sa+pz*ca;let nx=vertices[k+3],nz=vertices[k+5];vertices[k+3]=nx*ca+nz*sa;vertices[k+5]=-nx*sa+nz*ca;}}
+}
+let peopleBuffer=gl.createBuffer(),peopleMesh={buffer:peopleBuffer,n:0};
+function updatePeople(seconds){vertices=[];
+ if(scene==='terminal')for(let i=0;i<crowds.length;i++){
+    let p=crowds[i],t=seconds*(p.rate||0)+(p.phase||0),off=Math.sin(t)*(p.length||0),travelling=p.axis!=='stand';
+    let x=p.x+(p.axis==='x'?off:0),z=p.z+(p.axis==='z'?off:0);
+    person(x,z,travelling?seconds*6.5+i:0,p.kind,p.color,Math.cos(t)>0?1:-1,faces[i%faces.length],false,p.axis==='x'?(Math.cos(t)>0?Math.PI/2:-Math.PI/2):(p.axis==='z'?(Math.cos(t)>0?0:Math.PI):Math.PI));
+ }
+ if(scene==='terminal')for(let i=0;i<10;i++){let x=[-16.4,-13.6,-8.4,-5.6,0,2.4,9.4,16.4,14.6,7.6][i],z=i<5?-16.6:-19.6;person(x,z,0,'traveller',['pink','blue','green','purple','orange'][i%5],1,faces[i%4],true,0);}
+ if(scene==='bridge')for(let i=0;i<4;i++){
+    let z=-2-i*5+(Math.sin(seconds*.56+i)*1.8);person(i%2?-1.8:1.8,z,seconds*6+i,'traveller',['blue','green','pink','orange'][i],1,faces[i],false,Math.cos(seconds*.56+i)>0?0:Math.PI);
+ }
+ if(scene==='cabin'){let count=planeTypes[plane][1];for(let i=0;i<count;i++){
+    if(deckFor(i)!==cabinDeck||lostPassengers.has(String(i)))continue;
+    let z=seatZ(i),x=seatX(i);
+    // Draw passengers near the player's current position to keep large cabins fast.
+    if(Math.abs(z-player.z)>19)continue;
+    let start=vertices.length;person(x,z,0,'passenger',['pink','blue','green','purple','orange'][i%5],1,faces[i%faces.length],true,Math.PI);
+    if(cabinDeck)for(let k=start;k<vertices.length;k+=9)vertices[k+1]+=DECK_HEIGHT;
+ }
+ // Cabin crew near the forward service cart.
+ person(-2,-1.4,seconds*.6,'staff','navy',1,'#ffe588');
+ if(encounterVisible()){person(madame.x,madame.z,seconds*8,'traveller','purple',1,'#dd9fff',false,Math.PI);box(madame.x,2.8,madame.z,.85,.22,.85,'red');}
+ }
+ const arr=new Float32Array(vertices);gl.bindBuffer(gl.ARRAY_BUFFER,peopleBuffer);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.DYNAMIC_DRAW);peopleMesh.n=arr.length/9;vertices=[];
+}
+let sceneMeshes={},mesh=null;function loadScene(next){scene=next;mesh=sceneMeshes[next]||(sceneMeshes[next]=({terminal,bridge,cabin,flight:flightWorld})[next]());if(next==='terminal')resetPlayer(0,18);if(next==='bridge')resetPlayer(0,1);if(next==='cabin'){cabinDeck=0;resetPlayer(0,-1);}if(next==='flight')resetPlayer(-30,9,Math.PI/2);updateDangerUI();refresh()}
+function perspective(fovy,aspect,near,far){let f=1/Math.tan(fovy/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0])}
+function lookAt(eye,target){let z=[eye[0]-target[0],eye[1]-target[1],eye[2]-target[2]],len=Math.hypot(...z);z=z.map(v=>v/len);let x=[z[2],0,-z[0]];len=Math.hypot(...x);x=x.map(v=>v/len);let y=[z[1]*x[2]-z[2]*x[1],z[2]*x[0]-z[0]*x[2],z[0]*x[1]-z[1]*x[0]];return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-x.reduce((a,v,i)=>a+v*eye[i],0),-y.reduce((a,v,i)=>a+v*eye[i],0),-z.reduce((a,v,i)=>a+v*eye[i],0),1])}
+function mul(a,b){let o=new Float32Array(16);for(let j=0;j<4;j++)for(let i=0;i<4;i++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+i]*b[j*4+k];o[j*4+i]=s}return o}
+let VP;function project(x,y,z){let p=[x,y,z,1],r=[];for(let i=0;i<4;i++){let s=0;for(let j=0;j<4;j++)s+=VP[j*4+i]*p[j];r.push(s)}if(r[3]<.1)return null;let w=$('labels').width,h=$('labels').height;return [(r[0]/r[3]+1)*w/2,(1-r[1]/r[3])*h/2,r[3]]}
+const signData={terminal:[[-13,4.4,12,'CHECK-IN'],[2,4.4,12,'BAG DROP'],[0,4.5,1,'SECURITY'],[-20,5.3,-5.4,'TRAVEL SHOP'],[18,5.3,-5.4,'DUTY FREE'],[0,5.2,-2.8,'DEPARTURES'],[-13,6,-23.5,'GATE A12'],[0,6,-23.5,'GATE A14'],[13,6,-23.5,'GATE B06'],[0,5,-11,'CAFÉ'] ],bridge:[[0,3.45,-23,'AIRCRAFT DOOR']],cabin:[[0,2.6,-1.6,'CREW STATION']]};
+function drawLabels(){let canvas=$('labels'),c=canvas.getContext('2d');c.clearRect(0,0,canvas.width,canvas.height);for(let [x,y,z,s] of signData[scene]||[]){let q=project(x,y,z);if(!q||q[0]<-200||q[0]>canvas.width+200||q[1]<-50||q[1]>canvas.height+50||q[2]>70)continue;let sz=Math.max(11,Math.min(25,220/q[2])),tw=Math.max(105,s.length*sz*.58+18);c.fillStyle='#103b63e8';c.fillRect(q[0]-tw/2,q[1]-sz,tw,sz+12);c.strokeStyle='#80d6ff';c.lineWidth=1.5;c.strokeRect(q[0]-tw/2,q[1]-sz,tw,sz+12);c.fillStyle='#fff';c.font=`bold ${sz}px Arial`;c.textAlign='center';c.fillText(s,q[0],q[1]+2)} }
+function render(){let canvas=$('view'),label=$('labels'),w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(devicePixelRatio||1,1.6),width=Math.max(1,Math.floor(w*dpr)),height=Math.max(1,Math.floor(h*dpr));if(canvas.width!==width||canvas.height!==height){canvas.width=label.width=width;canvas.height=label.height=height;gl.viewport(0,0,width,height)}gl.clearColor(.61,.79,.9,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);let d=[Math.sin(player.yaw)*Math.cos(player.pitch),Math.sin(player.pitch),-Math.cos(player.yaw)*Math.cos(player.pitch)];if(scene==='flight'){let pos=planePosition(),hRad=flight.heading*Math.PI/180,pRad=flight.pitch*Math.PI/180;let f=[Math.cos(hRad)*Math.cos(pRad),Math.sin(pRad),Math.sin(hRad)*Math.cos(pRad)];let eye=exteriorCam?[pos[0]-26*f[0]+15*f[2],pos[1]+12,pos[2]-26*f[2]-15*f[0]]:[pos[0]+4.8*f[0],pos[1]+3.0,pos[2]+4.8*f[2]],target=exteriorCam?[pos[0],pos[1]+2,pos[2]]:[eye[0]+80*f[0],eye[1]+18*f[1]-(flight.autopilot==='pushback'?2:0),eye[2]+80*f[2]];VP=mul(perspective(Math.PI/3,width/height,.1,1800),lookAt(eye,target))}else VP=mul(perspective(Math.PI/3,width/height,.1,150),lookAt([player.x,player.y,player.z],[player.x+d[0],player.y+d[1],player.z+d[2]]));gl.uniformMatrix4fv(vpLoc,false,VP);drawMesh(mesh);if(scene==='flight'){drawMesh(flyingPlaneMesh,flightModel());drawLiveryPanels();}if(scene!=='flight'){updatePeople(performance.now()/1000);drawMesh(peopleMesh);}drawLabels();}
+let seatTargets={terminal:[],cabin:[[-2.65,-2.25]]};
+for(let bx of [-15,-7,1,9,16])for(let bz of [-16.6,-19.6])for(let dx of [-1.4,0,1.4]){
+ let occupied=(bz===-16.6 && (bx===-15 || bx===-7) && dx!==0) || (bz===-19.6 && bx===9 && dx!==0);
+ if(!occupied)seatTargets.terminal.push([bx+dx,bz]);
+}
+function nearestSeat(){let arr=(scene==='cabin'&&cabinDeck===1)?[[-2.65,-2.25]]:(seatTargets[scene]||[]);let nearest=null,dd=3.35;for(let p of arr){let d=Math.hypot(player.x-p[0],player.z-p[1]);if(d<dd){dd=d;nearest=p}}return nearest}
+function toggleSit(){if(scene==='flight'||scene==='bridge'){notify('Find a seat inside the terminal or plane cabin');return}if($('overlay').style.display!=='none')return;
+ if(seatedAt){let was=seatedAt;seatedAt=null;player.y=1.75+(scene==='cabin'?cabinDeck*DECK_HEIGHT:0);player.x=scene==='cabin'?0:Math.max(-23,Math.min(23,was[0]));player.z=scene==='cabin'?was[1]+.5:was[1]+2;notify('You stood up!');refreshPrompt();return}
+ let p=nearestSeat();if(!p){notify('Walk close to an empty seat, then press H or SIT / STAND');return}
+ seatedAt=[...p];player.x=p[0];player.z=p[1];player.y=1.53+(scene==='cabin'?cabinDeck*DECK_HEIGHT:0);player.yaw=0;player.pitch=-.08;notify('💺 You are sitting! Press H to stand up.');refreshPrompt();}
+let servedSeats=new Set();
+// Exactly one random roll per created flight. Cartoon/non-graphic cabin encounter.
+let madame={rolled:false,spawn:false,active:false,stopped:false,x:0,z:-10,deck:0,losses:0,elapsed:0,cooldown:0};
+let lostPassengers=new Set();
+function resetMadame(){
+ madame={rolled:true,spawn:Math.random()<1/20,active:false,stopped:false,x:0,z:-10,deck:0,losses:0,elapsed:0,cooldown:0};
+ lostPassengers.clear();$('dangerHUD').style.display='none';$('blaster').style.display='none';
+}
+function encounterVisible(){return scene==='cabin'&&madame.active&&!madame.stopped&&cabinDeck===madame.deck}
+function updateDangerUI(){
+ const visible=scene==='cabin'&&madame.spawn&&!madame.stopped;
+ $('dangerHUD').style.display=visible?'block':'none';
+ $('blaster').style.display=visible?'inline-block':'none';
+ if(visible)$('dangerText').textContent=`Lost ${madame.losses} passenger(s) • -${madame.losses*10} coins • Press B or STOP button near her`;
+}
+function stopMadame(){
+ if(!encounterVisible()){notify('No Madame Killer near you.');return}
+ let dist=Math.hypot(player.x-madame.x,player.z-madame.z);
+ if(dist>14){notify('🔫 Too far away! Get closer to Madame Killer.');return}
+ madame.active=false;madame.stopped=true;
+ updateDangerUI();refresh();notify('✨ Madame Killer stopped! Passengers are safe.');
+}
+function updateMadame(dt){
+ if(scene!=='cabin'||$('overlay').style.display!=='none')return;
+ if(!madame.spawn||madame.stopped||!flight.airborne)return;
+ if(!madame.active){madame.active=true;madame.x=0;madame.z=-11;madame.deck=0;madame.cooldown=4;notify('⚠️ MADAME KILLER! Use the cartoon blaster (B) to stop her!');updateDangerUI()}
+ if(cabinDeck!==madame.deck)return;
+ madame.elapsed+=dt;madame.cooldown-=dt;
+ let target=-1,best=Infinity;
+ for(let i=0;i<planeTypes[plane][1];i++){
+  if(deckFor(i)!==madame.deck||lostPassengers.has(String(i))||servedSeats.has(String(i)))continue;
+  const z=seatZ(i),distance=Math.abs(z-madame.z);
+  if(distance<best){best=distance;target=i}
+ }
+ if(target<0)return;
+ const tz=seatZ(target);madame.z+=Math.sign(tz-madame.z)*Math.min(Math.abs(tz-madame.z),dt*.95);
+ if(Math.abs(madame.z-tz)<2.5&&madame.cooldown<=0){
+  lostPassengers.add(String(target));madame.losses++;
+  coins=Math.max(0,coins-10);madame.cooldown=5;
+  save();refresh();notify('😱 Passenger '+(target+1)+' escaped the cabin! -10 coins');updateDangerUI();
+  if(servedSeats.size+lostPassengers.size>=planeTypes[plane][1]){stage='land';refresh();notify('All remaining passengers accounted for. Return to cockpit and land.');}
+ }
+}
+let points={checkin:[-13,12],security:[0,3],gate:[-13,-22],bridge:[0,-23],safety:[0,-1.8],serve:[0,-6],land:[0,-17],exit:[0,-.7]};function distance(p){return Math.hypot(player.x-p[0],player.z-p[1])}function nearby(){let choices=[];if(scene==='terminal'){choices.push(['check-in',[-13,12]],['security',[0,3]],['shop',[-20,-5]],['duty free',[18,-5]],['cafe',[0,-5.8]],['boarding gate',[[ -13,0,13 ][['A12','A14','B06'].indexOf(gate)],-22]])}if(scene==='flight')return null;if(scene==='bridge')choices.push(['aircraft door',[0,-23]]);if(scene==='cabin'){
+ if(cabinDeck===0)choices.push(['crew station',[0,-1.8]],['cockpit',[0,-cabinLength()+2]],['exit door',[0,-.7]]);
+ if(hasUpper())choices.push([cabinDeck?'stairs down':'stairs up',[0,-5.8]]);
+ for(let i=0;i<planeTypes[plane][1];i++){
+  if(deckFor(i)!==cabinDeck||lostPassengers.has(String(i))||servedSeats.has(String(i)))continue;
+  const pos=[seatX(i),seatZ(i)];
+  if(Math.abs(pos[1]-player.z)<5&&!servedSeats.has(String(i)))choices.push(['passenger',pos,i]);
+ }
+ }if(!seatedAt && nearestSeat())choices.push(['empty seat',nearestSeat()]);choices.sort((a,b)=>distance(a[1])-distance(b[1]));return choices[0]&&distance(choices[0][1])<(choices[0][0]==='passenger'?4.8:4)?choices[0]:null}
+function switchDeck(){
+ if(scene!=='cabin'||!hasUpper()){notify('Only A380 and Boeing 747 have two decks');return}
+ if(seatedAt){notify('Stand up before using the stairs (H)');return}
+ if(Math.hypot(player.x,player.z+5.8)>8.0){notify('Go to the front stairs near the cabin entrance');return}
+ cabinDeck=1-cabinDeck;player.y=1.75+cabinDeck*DECK_HEIGHT;player.x=0;player.z=-5.8;
+ refresh();notify(cabinDeck?'⬆ Welcome to the UPPER DECK!':'⬇ Back on the MAIN DECK!');
+}
+function refreshPrompt(){let n=nearby();$('prompt').textContent=seatedAt?'💺 SEATED — press H or SIT / STAND to get up':n?`SPACE / INTERACT — ${n[0].toUpperCase()}`:scene==='terminal'?'Walk to check-in, security, shops or gates • Space to interact':scene==='cabin'?'Walk down aisle • press H near empty crew seat • Space to serve':'Walk to the aircraft door • Space to board'}
+let lastNear='';function interact(){if($('overlay').style.display!=='none')return;let n=nearby();if(!n){notify('Move closer to a counter, gate, shop or passenger');return}let type=n[0];if(type==='empty seat'){toggleSit();return}if(type==='stairs up'||type==='stairs down'){switchDeck();return}if(type==='shop'||type==='duty free'){showShop();return}if(type==='cafe'){showCafe();return}if(type==='check-in'){if(!flightActive){showPlan();return}checked=true;stage='security';notify('Checked in! Go to SECURITY 🧳');refresh();return}if(type==='security'){if(!checked){notify('First check in at the airline desks');return}security=true;stage='gate';notify('Security passed! Find gate '+gate);refresh();return}if(type==='boarding gate'){if(!security){notify('Finish check-in and security first');return}stage='bridge';loadScene('bridge');notify('Boarding! Walk down the jet bridge');return}if(type==='aircraft door'){stage='takeoff';resetMadame();flight={speed:0,alt:0,distance:0,heading:0,bank:0,pitch:0,throttle:0,landed:false,started:false,autopilot:'',airborne:false,touchdown:false,pushbackProgress:0,taxiOutProgress:0,pushbackDone:false};loadScene('cabin');notify('Welcome aboard! Sitting in the cockpit now — pushback tug starting.');refresh();beginFlying();return}if(type==='crew station'){if(stage==='safety'&&flight.airborne){stage='serve';servedSeats.clear();notify('Safety demonstration complete! Now serve your passengers.');refresh()}else if(!flight.airborne)notify('Take off first! Service starts after takeoff.');else notify('Crew station ready');return}if(type==='passenger'){if(stage!=='serve'||!flight.airborne){notify('Take off and complete the safety demonstration before serving!');return}showPassengerOrder(n[2]);return}if(type==='cockpit'){if(stage==='takeoff'||stage==='land'||stage==='fly'){beginFlying();return}else notify('Finish your in-flight service before returning to the cockpit');return}if(type==='exit door'){if(stage==='exit'){stage='done';arrival=true;flightActive=false;loadScene('terminal');notify('Welcome to '+to+'! Flight complete 🎉')}else notify('The plane has not landed yet');return}}
+function notify(s){let e=$('notify');e.textContent=s;e.style.display='block';clearTimeout(notify._timer);notify._timer=setTimeout(()=>e.style.display='none',3200)}
+const keys={};const kmap={ArrowUp:'forward',KeyW:'forward',ArrowDown:'back',KeyS:'back',ArrowLeft:'strafeleft',KeyA:'strafeleft',ArrowRight:'straferight',KeyD:'straferight',KeyQ:'turnleft',KeyE:'turnright'};
+document.addEventListener('keydown',e=>{if(kmap[e.code]){keys[kmap[e.code]]=true;e.preventDefault()}if(e.code==='KeyH'&&!e.repeat){e.preventDefault();toggleSit()}if(e.code==='KeyJ'&&!e.repeat){e.preventDefault();switchDeck()}if(e.code==='KeyF'&&!e.repeat){e.preventDefault();if(scene==='flight')returnToCabin();else beginFlying()}if(scene==='flight'&&e.code==='KeyR')keys.throttleup=true;if(scene==='flight'&&e.code==='KeyT')keys.throttledown=true;if(e.code==='KeyB'&&!e.repeat){e.preventDefault();stopMadame()}if(e.code==='Space'&&!e.repeat){e.preventDefault();interact()}if(e.code==='Escape')close()});document.addEventListener('keyup',e=>{if(kmap[e.code]){keys[kmap[e.code]]=false;e.preventDefault()}if(e.code==='KeyR')keys.throttleup=false;if(e.code==='KeyT')keys.throttledown=false});for(let b of document.querySelectorAll('[data-hold]')){let name=b.dataset.hold;b.addEventListener('pointerdown',e=>{e.preventDefault();keys[name]=true;try{b.setPointerCapture(e.pointerId)}catch(_){}});for(let ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>keys[name]=false)}
+window.addEventListener('blur',()=>Object.keys(keys).forEach(k=>keys[k]=false));let dragging=false,lastX=0,lastY=0;$('view').addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY});window.addEventListener('pointerup',()=>dragging=false);window.addEventListener('pointermove',e=>{if(!dragging)return;player.yaw+=(e.clientX-lastX)*.005;player.pitch=Math.max(-.75,Math.min(.75,player.pitch-(e.clientY-lastY)*.004));lastX=e.clientX;lastY=e.clientY});
+const terminalObstacles=[];
+function obstacle(x,z,w,d){terminalObstacles.push([x-w/2,z-d/2,x+w/2,z+d/2])}
+for(let x of [-17,-9,-1,7]){obstacle(x,12.3,5.2,2.3);obstacle(x,10.3,2.3,1.3)}
+for(let x of [-8,0,8]){obstacle(x,2.5,3.7,1.7);obstacle(x-2,1,.55,.7);obstacle(x+2,1,.55,.7)}
+for(let x of [-20,18]){obstacle(x,-9,9,6);obstacle(x,-6.5,6,1.7)}
+obstacle(0,-9,9.4,3.4);
+for(let x of [-15,-7,1,9,16])for(let z of [-16.6,-19.6])obstacle(x,z,4.8,1.6);
+for(let x of [-13,0,13])obstacle(x,-21.7,4.3,1.7);
+for(let x of [-19,-8,8,19])for(let z of [-16,0,16])obstacle(x,z,.7,.7);
+// Queue belt collision matches the 3D barrier geometry; leave lane entrances open.
+function barrierX(x1,x2,z){obstacle((x1+x2)/2,z,Math.abs(x2-x1),.12)}
+function barrierZ(x,z1,z2){obstacle(x,(z1+z2)/2,.12,Math.abs(z2-z1))}
+for(let z of [17.2,19.3,21.4]){barrierX(-22,-16,z);barrierX(-13.5,-7.5,z)}
+for(let z of [17.2,19.3])barrierZ(-22,z,z+2.1);
+for(let z of [19.3,21.4])barrierZ(-7.5,z,z+2.1);
+for(let x of [-5.8,5.8])barrierZ(x,5.2,9.6);
+for(let [a,b,z] of [[-5.8,-1.2,9.6],[1.2,5.8,9.6],[-5.8,-1.2,7.4],[1.2,5.8,7.4]])barrierX(a,b,z);
+for(let gx of [-13,0,13]){barrierZ(gx-2.8,-18.9,-16);barrierZ(gx+2.8,-18.9,-16)}
+for(let x of [-22,22])obstacle(x,-22,5,.4);
+
+function clearWalk(x,z){if(scene==='terminal')return !terminalObstacles.some(([l,t,r,b])=>x>l-.24&&x<r+.24&&z>t-.24&&z<b+.24);return true}
+function move(dt){if(seatedAt)return;if(scene==='flight')return;if($('overlay').style.display!=='none')return;let speed=6.7*dt,rot=2.0*dt;if(keys.turnleft)player.yaw-=rot;if(keys.turnright)player.yaw+=rot;let f=(keys.forward?1:0)-(keys.back?1:0),s=(keys.straferight?1:0)-(keys.strafeleft?1:0);if(!f&&!s)return;let norm=Math.hypot(f,s),dx=(Math.sin(player.yaw)*f+Math.cos(player.yaw)*s)*speed/norm,dz=(-Math.cos(player.yaw)*f+Math.sin(player.yaw)*s)*speed/norm;let nx=player.x+dx,nz=player.z+dz;
+if(scene==='terminal'){let xx=Math.max(-23.3,Math.min(23.3,nx)),zz=Math.max(-26.5,Math.min(26.5,nz));if(clearWalk(xx,player.z))player.x=xx;if(clearWalk(player.x,zz))player.z=zz;}else if(scene==='bridge'){player.x=Math.max(-3.4,Math.min(3.4,nx));player.z=Math.max(-23.5,Math.min(3.4,nz))}else{let len=cabinDeck?Math.max(16,Math.ceil(upperCount()/4)*SEAT_SPACING+8):cabinLength();player.x=Math.max(-1.05,Math.min(1.05,nx));player.z=Math.max(-len+1,Math.min(-.8,nz))}}
+// Ten minutes of game time earns 200 coins. Pauses automatically in hidden tabs.
+let rewardRemaining=600;
+function rewardClock(dt){
+ if(document.hidden||dt<=0)return;
+ rewardRemaining=Math.max(0,rewardRemaining-dt);
+ if(rewardRemaining===0){coins+=200;save();refresh();notify('🎉 10 minutes played! +200 coins! Next reward in 10 minutes.');rewardRemaining=600;}
+ const seconds=Math.ceil(rewardRemaining);
+ const label=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+ $('bonusTimer').textContent='⏱️ '+label+' → +200 🪙';
+}
+let last=0,ptime=0;function frame(t){let dt=Math.min(.05,(t-last)/1000||.016);last=t;rewardClock(dt);move(dt);updateFlight(dt);updateMadame(dt);render();if(t-ptime>180){ptime=t;let n=nearby(),id=n?n[0]+n[1].join(','):'';if(id!==lastNear){lastNear=id;refreshPrompt()}}requestAnimationFrame(frame)}
+function modal(html){Object.keys(keys).forEach(k=>keys[k]=false);$('modal').innerHTML=html;$('overlay').style.display='flex'}function close(){$('overlay').style.display='none'}function option(items,current){return items.map(x=>`<option ${x===current?'selected':''}>${x}</option>`).join('')}
+function airportOptions(selected){return ports.map(p=>`<option value="${p}" ${p===selected?'selected':''} ${unlockedAirports.has(p)?'':'disabled'}>${airportFlag[p]} ${p}${unlockedAirports.has(p)?'':' 🔒 '+airportPrices[p].toLocaleString()+' coins'}</option>`).join('')}
+function showPlan(){
+ modal(`<h2>🛫 Create your flight</h2><p>Choose your airline, route and owned aircraft. You start with <b>London, Paris and Tokyo (Japan)</b>. Buy other airports in the Destinations shop!</p>
+ <label>Airline</label><select id="a-airline">${option(airlineOptions(),airline)}</select>
+ <button id="planCustomAirline" class="gold" style="margin-top:8px">🎨 CREATE OR EDIT YOUR AIRLINE</button><label>From</label><select id="a-from">${airportOptions(unlockedAirports.has(from)?from:'London Heathrow')}</select>
+ <label>Destination</label><select id="a-to">${airportOptions(unlockedAirports.has(to)?to:'Paris Charles de Gaulle')}</select>
+ <label>Airplane</label><select id="a-plane">${Object.keys(planeTypes).map(p=>`<option value="${p}" ${p===plane?'selected':''} ${!owned.has(p)?'disabled':''}>${p} · ${planeTypes[p][1]} passengers${owned.has(p)?'':' (locked)'}</option>`).join('')}</select>
+ <button id="planCatering" class="gold" style="margin-top:10px">🛒 BUY FLIGHT FOOD & DRINKS</button><p style="font-size:13px;color:#517087">🔒 Locked airports cannot be selected. Unlock them permanently with coins.</p>
+ <div class="row"><button class="gold" id="openDestinations">🌍 BUY DESTINATIONS</button><button class="primary" id="start">✈️ CREATE FLIGHT</button><button id="cancel">Continue walking</button></div>`);
+ $('cancel').onclick=close;
+ $('planCustomAirline').onclick=showAirlineCreator;$('planCatering').onclick=showCatering;
+ $('openDestinations').onclick=showDestinations;
+ $('start').onclick=()=>{
+   const origin=$('a-from').value,destination=$('a-to').value,selectedPlane=$('a-plane').value;
+   if(!unlockedAirports.has(origin)||!unlockedAirports.has(destination)){notify('🔒 Unlock both airports in the Destinations shop first!');return}
+   if(!owned.has(selectedPlane)){notify('Buy this airplane first!');return}
+   if(origin===destination){notify('Choose two different airports');return}
+   airline=$('a-airline').value;drawLiveryTexture();from=origin;to=destination;plane=selectedPlane;
+   gate=['A12','A14','B06'][Math.floor(Math.random()*3)];stage='checkin';served=0;servedSeats.clear();flightActive=true;arrival=false;checked=security=false;sceneMeshes.cabin=null;
+   flight={speed:0,alt:0,distance:0,heading:0,bank:0,pitch:0,throttle:0,landed:false,started:false,autopilot:'',airborne:false};
+   madame.rolled=false;madame.spawn=false;madame.active=false;lostPassengers.clear();loadScene('terminal');close();notify('Flight created! Buy food & drinks before boarding, then check in at gate '+gate+'.')
+ }
+}
+function showDestinations(){
+ modal(`<h2>🌍 Airport destinations</h2><p>Start with <b>London, Paris and Tokyo (Japan)</b> free. Buy each other airport once, then fly there whenever you like. 🪙 <b>${coins.toLocaleString()} coins</b></p>
+ <div class="cards">${ports.map(p=>{let price=airportPrices[p],have=unlockedAirports.has(p);return `<div class="item"><strong>${airportFlag[p]} ${p}</strong><small>${price===0?'🎁 Starter airport · FREE':'🪙 '+price.toLocaleString()+' coins · permanent unlock'}</small><button data-airport="${p}" ${have||coins<price?'disabled':''}>${have?'✅ Unlocked':coins<price?'🔒 Not enough coins':'🪙 UNLOCK AIRPORT'}</button></div>`}).join('')}</div>
+ <div class="row"><button id="destClose">Back to airport</button><button class="primary" id="destPlan">🛫 CREATE FLIGHT</button></div>`);
+ $('destClose').onclick=close;$('destPlan').onclick=showPlan;
+ document.querySelectorAll('[data-airport]').forEach(b=>b.onclick=()=>{const p=b.dataset.airport,cost=airportPrices[p];if(unlockedAirports.has(p)||!Number.isFinite(cost)||coins<cost)return;
+  coins-=cost;unlockedAirports.add(p);save();refresh();showDestinations();notify('🌍 '+p+' unlocked! You can now fly there.')})
+}
+function showPlanes(){modal(`<h2>🛩️ Aircraft hangar</h2><p>All aircraft have 10× more seats. Paid planes cost 2× as much. Start with the FREE A320 and earn coins by flying. Your balance: 🪙 ${coins}</p><div class="cards">${Object.entries(planeTypes).map(([p,[cost,pass,bonus]])=>`<div class="item"><strong>✈️ ${p}</strong><small>${pass} passengers · ${bonus} landing bonus</small><small>🪙 ${cost?cost.toLocaleString():'FREE'}</small><button data-p="${p}" ${owned.has(p)?'disabled':coins<cost?'disabled':''}>${owned.has(p)?'✅ Owned':coins<cost?'Not enough coins':'🪙 BUY PLANE'}</button></div>`).join('')}</div><div class="row"><button id="done">Done</button><button class="primary" id="newflight">Create flight</button></div>`);$('done').onclick=close;$('newflight').onclick=showPlan;document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{let p=b.dataset.p,cost=planeTypes[p][0];if(coins<cost||owned.has(p))return;coins-=cost;owned.add(p);save();refresh();showPlanes();notify('Unlocked '+p+'!')})}
+const stock=[['🧸','Teddy bear',150],['🎧','Headphones',220],['🥤','Drink',60],['🛏️','Neck pillow',140],['👜','Travel bag',280],['🍫','Chocolate',45]];
+function showShop(){modal(`<h2>🛍️ Airport shops</h2><p>Pick something from the shops! Your balance: 🪙 ${coins}</p><div class="cards">${stock.map(([icon,name,cost])=>`<div class="item"><strong>${icon} ${name}</strong><small>🪙 ${cost}</small><button data-item="${name}" ${inventory.has(name)||coins<cost?'disabled':''}>${inventory.has(name)?'✅ Purchased':coins<cost?'Not enough coins':'BUY'}</button></div>`).join('')}</div><div class="row"><button id="done">Return to terminal</button></div>`);$('done').onclick=close;document.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{let s=stock.find(s=>s[1]===b.dataset.item);if(!s||coins<s[2])return;coins-=s[2];inventory.add(s[1]);save();refresh();showShop();notify('Purchased '+s[1])})}
+const cafeFood=[['🥪','Sandwich',70],['🍕','Pizza slice',110],['🍔','Burger',130],['🥐','Croissant',50],['🍰','Cake',80],['☕','Hot chocolate',50],['🧃','Orange juice',40],['🍟','Chips',60]];
+let eaten=0;
+function showCafe(){modal(`<h2>🍽️ Terminal Café</h2><p>Pick real food for your traveller! You have 🪙 ${coins.toLocaleString()} coins. Food can be bought more than once. Prices are now doubled.</p><div class="cards">${cafeFood.map(([emoji,name,price])=>`<div class="item"><strong style="font-size:22px">${emoji} ${name}</strong><small>🪙 ${price}</small><button data-food="${name}" ${coins<price?'disabled':''}>BUY & EAT</button></div>`).join('')}</div><div class="row"><button id="cafeexit">🚶 Back to airport</button></div>`);$('cafeexit').onclick=close;document.querySelectorAll('[data-food]').forEach(b=>b.onclick=()=>{let food=cafeFood.find(f=>f[1]===b.dataset.food);if(!food||coins<food[2])return;coins-=food[2];eaten++;save();refresh();notify(`${food[0]} Yum! You ate ${food[1]} · -${food[2]} coins`);showCafe()})}
+function showHelp(){modal(`<h2>🎮 How to play</h2><p><b>1.</b> Choose an airline and owned airplane with CREATE FLIGHT. London, Paris and Tokyo are free; unlock more airports in DESTINATIONS with coins.<br><b>2.</b> Walk to the airline check-in desks; press Space or INTERACT.<br><b>3.</b> Visit the security scanner and then your boarding gate.<br><b>4.</b> Walk through the jet bridge and enter the cabin.<br><b>5.</b> After boarding you sit in the cockpit, get pushed back from the gate, taxi to the runway, and then press TAKE OFF.<br><b>6.</b> Return to the cabin, do the safety demonstration, and serve each passenger’s requested food or drink from your pre-purchased trolley (+45 coins for a correct order).<br><b>7.</b> Go back to the cockpit and press LAND after 320 m to descend, touch down, turn onto the taxiway and park at the jetway. Or manually fly using R/T throttle, W/S pitch, Q/E heading. Press F to return to cabin. After taxiing to the jetway, exit the aircraft to complete the flight!</p><p><b>Custom airlines:</b> Click MAKE YOUR AIRLINE. Name an airline, pick two colours, create a logo inside the game or upload one, and save. Choose your airline when creating flights. The image appears on your 3D aircraft. Press VIEW PLANE LOGO during flying to see the outside of your aircraft.</p><p><b>Timed bonus:</b> A visible 10-minute countdown gives you 200 coins each time it finishes (only while the game tab is active).</p><p><b>Keys:</b> WASD or arrow keys move, Q/E rotate, drag mouse to look, Space interact, H to sit or stand. Walk close to an empty seat, then press H. On-screen touch controls are included.</p><p>These are new low-poly 3D models, not assets copied from Roblox.</p><button class="primary" id="done">PLAY</button>`);$('done').onclick=close}
+$('catering').onclick=showCatering;$('airlineCreator').onclick=()=>{makeNewAirline=!activeCustom();showAirlineCreator()};$('exteriorView').onclick=()=>{exteriorCam=!exteriorCam;$('exteriorView').textContent=exteriorCam?'🧑‍✈️ COCKPIT VIEW':'👁️ VIEW PLANE LOGO';};$('sit').onclick=toggleSit;$('deck').onclick=switchDeck;$('plan').onclick=showPlan;$('destinations').onclick=showDestinations;$('planes').onclick=showPlanes;$('shop').onclick=showShop;$('cafe').onclick=showCafe;$('interact').onclick=interact;$('touchact').onclick=interact;$('help').onclick=showHelp;$('pilot').onclick=()=>{if(scene==='terminal'){ $('testPilot').click(); }else beginFlying();};$('blaster').onclick=stopMadame;$('testPilot').onclick=()=>{if($('overlay').style.display!=='none')close(); resetMadame();if(!flightActive){flightActive=true;stage='fly'}else if(stage!=='land'&&stage!=='fly'){stage='fly'}flight={speed:0,alt:0,distance:0,heading:0,bank:0,pitch:0,throttle:0,landed:false,started:false,autopilot:'',airborne:false,touchdown:false};loadScene('cabin');beginFlying();guidedTakeoff();};$('returnCabin').onclick=returnToCabin;$('assistTakeoff').onclick=guidedTakeoff;$('assistLanding').onclick=guidedLanding;for(let [id,k] of [['throttleUp','throttleup'],['throttleDown','throttledown'],['pitchUp','forward'],['pitchDown','back'],['turnPlaneLeft','turnleft'],['turnPlaneRight','turnright']]){let b=$(id);b.addEventListener('pointerdown',e=>{e.preventDefault();keys[k]=true;b.setPointerCapture(e.pointerId)});for(let ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>keys[k]=false)}
+loadScene('terminal');close();refresh();notify('🛒 Buy flight food & drinks with coins before boarding!');requestAnimationFrame(frame);
+})();
+</script></body></html>
