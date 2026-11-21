@@ -44,7 +44,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == '/api/me':
             with connect(DB) as db: row = self.user(db)
             return self.reply(200, {'username':row[1], 'save':json.loads(row[2]), 'revision':row[3]} if row else {'username':None})
-        files = {'/':'index.html', '/game':'game.html', '/account.js':'account.js'}
+        files = {'/':'index.html', '/game':'game.html', '/account.js':'account.js', '/api.js':'api.js'}
         if self.path not in files: return self.reply(404, {'error':'Not found'})
         if self.path == '/game':
             with connect(DB) as db: row = self.user(db)
