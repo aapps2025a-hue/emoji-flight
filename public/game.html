@@ -39,6 +39,7 @@ const DECK_HEIGHT=5.2;
 let cabinDeck=0;const ports=['London Heathrow','Paris Charles de Gaulle','Aberdeen','Amsterdam Schiphol','Lisbon','Porto','New York JFK','Beijing Capital','Tokyo Haneda','Chengdu Tianfu'];const airlines=['Air China','Air France','TAP Air Portugal'];
 // Airport access is a one-time coin unlock; both origins and destinations must be unlocked.
 // London, Paris and Tokyo (Japan) are free on all new and existing saves.
+me = "www.emojis-symbols.online"
 const airportPrices={
  'London Heathrow':0,
  'Paris Charles de Gaulle':0,
@@ -71,9 +72,13 @@ const cateringItems=[
  {id:'coffee',emoji:'☕',name:'Coffee',price:22}
 ];
 let cateringStock={};for(const item of cateringItems)cateringStock[item.id]=Math.max(0,Math.floor(Number(saved.cateringStock?.[item.id])||0));
-function requestedItem(index){return cateringItems[(index*7+Math.floor(index/8))%cateringItems.length];}
+function requestedItem(index){
+ const available=cateringItems.filter(item=>(cateringStock[item.id]||0)>0);
+ if(!available.length)return null;
+ return available[(index*7+Math.floor(index/8))%available.length];
+}
 function orderNeeds(){let needs={};for(const item of cateringItems)needs[item.id]=0;
- const count=planeTypes[plane][1];for(let i=0;i<count;i++)if(!servedSeats.has(String(i))&&!lostPassengers.has(String(i)))needs[requestedItem(i).id]++;
+ const count=planeTypes[plane][1];for(let i=0;i<count;i++)if(!servedSeats.has(String(i))&&!lostPassengers.has(String(i))){const item=cateringItems[(i*7+Math.floor(i/8))%cateringItems.length];needs[item.id]++;}
  return needs;
 }
 function stockTotal(){return cateringItems.reduce((n,item)=>n+(cateringStock[item.id]||0),0)}
@@ -88,7 +93,7 @@ function showCatering(){
  modal(`<h2>🛒 Flight Food & Drinks Cart</h2><p>Passengers order different things! <b>Buy supplies with coins before boarding. Food and drink prices are doubled.</b> Serving the correct order earns 🪙 45. Stock stays in your cart until served. Your balance: <b>🪙 ${coins.toLocaleString()}</b>.</p>
  <p><b>Aircraft:</b> ${plane} · ${planeTypes[plane][1]} passengers · <b>Stock:</b> ${stockTotal()} items. ${canBuy?'✅ Preflight purchases are available.':'⚠️ Already boarding or flying: the cart is locked. Buy supplies for the next flight.'}</p>
  <div class="cards">${shortage.map(item=>`<div class="item"><strong>${item.emoji} ${item.name}</strong><small>🪙 ${item.price} each · On board: <b>${cateringStock[item.id]||0}</b> · Remaining orders: ${item.required}</small>
- <div class="row"><button data-foodbuy="${item.id}" data-qty="1" ${!canBuy||coins<item.price?'disabled':''}>+1 · 🪙 ${item.price}</button><button data-foodbuy="${item.id}" data-qty="5" ${!canBuy||coins<item.price*5?'disabled':''}>+5 · 🪙 ${item.price*5}</button></div></div>`).join('')}</div>
+ <div class="row"><button data-foodbuy="${item.id}" data-qty="10" ${!canBuy||coins<item.price*10?'disabled':''}>+10 · 🪙 ${item.price*10}</button><button data-foodbuy="${item.id}" data-qty="40" ${!canBuy||coins<item.price*40?'disabled':''}>+40 · 🪙 ${item.price*40}</button></div></div>`).join('')}</div>
  <p>🧾 Buy all missing items for the current flight: <b>🪙 ${cost}</b>. ${cost<=coins?'You can afford it!':'Not enough coins — buy what you can, then earn more coins from flights.'}</p>
  <div class="row"><button class="primary" id="buyAllCatering" ${!canBuy||cost===0||coins<cost?'disabled':''}>🧳 STOCK EVERYTHING · 🪙 ${cost}</button><button id="cateringDone">${canBuy?'Return to airport':'Back to cabin'}</button></div>`);
  $('cateringDone').onclick=close;
@@ -99,6 +104,7 @@ function showPassengerOrder(index){
  if(stage!=='serve'||!flight.airborne){notify('Take off and complete the safety demonstration before serving!');return}
  if(servedSeats.has(String(index))){notify('This passenger was already served!');return}
  const wanted=requestedItem(index);
+ if(!wanted){notify('The trolley is empty! Passengers have no available food or drinks to request.');return}
  modal(`<h2>💺 Passenger ${index+1} — Food & Drink Order</h2>
  <p style="font-size:19px">🗣️ “Can I please have <b>${wanted.emoji} ${wanted.name}</b>?”</p>
  <p>Your trolley has <b>${cateringStock[wanted.id]||0}</b> ${wanted.name}. Choose the <b>correct</b> item to serve this passenger and earn 🪙 45.</p>
